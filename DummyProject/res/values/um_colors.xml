@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+<color name="app_title">#ffffff</color>
+<color name="header">#000000</color>
+<color name="summary">#000000</color>
+<color name="message_time">#787878</color>
+<color name="unread_count">#639200</color>
+<color name="listview_item_sep">#9c9c9c</color>
+<color name="disabled">#4d4d4d</color>
+<color name="green">#024d02</color>
+<color name="red">#d60404</color>
+
+<color name="app_background_endcolor">#e3f5fd</color>
+<color name="app_background_startcolor">#b9e6fb</color>
+
+<color name="item_border_selected_stroke">#9c9c9c</color>
+<color name="item_border_stroke">#FFFFFF</color>
+
+<color name="status_background_endcolor">#00abff</color>
+<color name="status_background_startcolor">#00abff</color>
+<color name="dark_blue">#242b7b</color>
+
+
+</resources>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+				android:layout_width="0dip"
+				android:layout_height="45dip"
+				android:layout_weight="1"
+				android:orientation="vertical"
+				android:background="@drawable/tab_indicator">
+				
+					
+		<TextView android:id="@+id/textview_quotes" 
+			  android:layout_width="wrap_content"
+			  android:layout_height="wrap_content"
+			  android:layout_centerInParent="true"
+			  android:text="@string/get_quotes_tab"
+			  android:singleLine="true"
+			  android:gravity="center"
+			  
+			  android:textColor="@android:color/white" />
+			  
+<!--	<ImageView android:id="@+id/imageview_contact_picture" -->
+<!--			   android:layout_width="wrap_content"-->
+<!--			   android:layout_height="wrap_content"-->
+<!--			   android:layout_centerHorizontal="true"-->
+<!--			   android:src="@drawable/get_quotes"/>-->
+	
+<!--	<TextView android:id="@+id/textview_unread_count" -->
+<!--			  android:layout_width="wrap_content"-->
+<!--			  android:layout_height="wrap_content"-->
+<!--			  android:layout_alignParentRight="true"-->
+<!--			  android:layout_alignParentTop="true"-->
+<!--			  android:text=""-->
+<!--			  android:singleLine="true"-->
+<!--			  android:gravity="center"-->
+<!--			  android:textStyle="bold"-->
+<!--			  android:textSize="9sp"-->
+<!--			  android:textColor="@color/header" -->
+<!--			  android:visibility="gone"-->
+<!--			  android:background="@drawable/red_count"/>-->
+			
+</RelativeLayout> 
+
+
