@@ -4,16 +4,20 @@
       android:versionCode="1"
       android:versionName="1.0">
     <uses-sdk android:minSdkVersion="8" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application android:icon="@drawable/icon" android:label="@string/app_name">
-        <activity android:name=".DemoProjectActivity"
-                  android:label="@string/app_name"
-                  android:theme="@android:style/Theme.NoTitleBar"                  
-                  >
+        <activity
+            android:name=".SplashScreen"
+            android:configChanges="keyboardHidden|orientation" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>        
+        <activity android:name=".DemoProjectActivity"
+                  android:label="@string/app_name"
+                  android:theme="@android:style/Theme.NoTitleBar">
         </activity>
     	<activity
             android:name=".NewsTab"
@@ -31,6 +35,9 @@
             android:name=".SubscriptionTab"
             android:configChanges="keyboardHidden|orientation" >
         </activity>
+        
+        
+        
     	    
     </application>
 </manifest>
