@@ -1,25 +1,12 @@
 package com.android.demo.trial;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-
-import android.app.Activity;
 import android.app.TabActivity;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.os.Handler;
-import android.provider.ContactsContract;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TabHost;
-import android.widget.TabWidget;
-import android.widget.TextView;
-import android.widget.TabHost.OnTabChangeListener;
 
 public class DemoProjectActivity extends TabActivity
 {
