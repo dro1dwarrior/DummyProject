@@ -6,14 +6,17 @@
   android:layout_width="fill_parent"
   android:background="@drawable/app_background">
 	
-	<TextView android:id="@id/android:empty"
-             android:layout_width="fill_parent" 
-             android:layout_height="fill_parent"
-             android:text="@string/news_tab" 
-             android:gravity="center" 
-             android:textColor="@color/summary"
-             android:layout_marginTop="2dip"
-             android:layout_margin="10dip"/>            
+	<ListView 	android:id="@+id/android:list" 
+				android:layout_width="wrap_content" 
+				android:layout_height="wrap_content"
+				android:fastScrollEnabled="true"
+				android:clickable="true"
+				android:focusable="false"
+				android:focusableInTouchMode="false"
+				android:divider="@color/listview_item_sep"
+    		  	android:dividerHeight="0.5dp"
+    		  	android:headerDividersEnabled="true"
+    		  	android:cacheColorHint="@android:color/transparent"/>            
 
 </LinearLayout>
 

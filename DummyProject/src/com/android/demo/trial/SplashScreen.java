@@ -1,9 +1,13 @@
 package com.android.demo.trial;
 
+import com.android.demo.db.DataProvider;
+import com.android.demo.db.DemoDatabase;
 import com.android.demo.util.Util;
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -31,7 +35,57 @@ public class SplashScreen extends Activity
 
         Util.setAppContext( this );
         Util.setNetworkStatus();
-
+ 
+/*        
+        Util.getDB().delete( DemoDatabase.NEWS_TABLE, null, null );
+        
+        ContentValues cv = new ContentValues();
+        cv.put( DataProvider.News.HEADLINE, "Mining scam: SC panel for CBI probe against Yeddyurappa kin" );
+        Util.getDB().insert( DemoDatabase.NEWS_TABLE, cv );
+        
+        cv.put( DataProvider.News.HEADLINE, "Reforms shutdown till 2014? Kaushik Basu's statement sparks political storm" );
+        Util.getDB().insert( DemoDatabase.NEWS_TABLE, cv );
+       
+        cv.put( DataProvider.News.HEADLINE, "Reforms shutdown till 2014? Kaushik Basu's statement sparks political storm" );
+        Util.getDB().insert( DemoDatabase.NEWS_TABLE, cv );
+        
+        cv.put( DataProvider.News.HEADLINE, "Reforms shutdown till 2014? Kaushik Basu's statement sparks political storm" );
+        Util.getDB().insert( DemoDatabase.NEWS_TABLE, cv );
+        
+        cv.put( DataProvider.News.HEADLINE, "Fed up with army, Egyptians back in Tahrir Square" );
+        Util.getDB().insert( DemoDatabase.NEWS_TABLE, cv );
+        
+        cv.put( DataProvider.News.HEADLINE, "'I am a very likeable person,' Breivik tells court" );
+        Util.getDB().insert( DemoDatabase.NEWS_TABLE, cv );
+        
+        cv.put( DataProvider.News.HEADLINE, "Ed Miliband calls for cancellation of Bahrain Grand Prix" );
+        Util.getDB().insert( DemoDatabase.NEWS_TABLE, cv );
+        
+        cv.put( DataProvider.News.HEADLINE, "Smaller Apple iPad: Why it's both a good and bad idea" );
+        Util.getDB().insert( DemoDatabase.NEWS_TABLE, cv );
+        
+        cv.put( DataProvider.News.HEADLINE, "Assam should become a growth engine: PM" );
+        Util.getDB().insert( DemoDatabase.NEWS_TABLE, cv );
+        
+        cv.put( DataProvider.News.HEADLINE, "Abhishek Manu Singhvi, his ex-driver inform HC about settlement" );
+        Util.getDB().insert( DemoDatabase.NEWS_TABLE, cv );
+        
+        cv.put( DataProvider.News.HEADLINE, "Hazare, Ramdev to hold joint fast on June 3" );
+        Util.getDB().insert( DemoDatabase.NEWS_TABLE, cv );
+        
+        cv.put( DataProvider.News.HEADLINE, "Amid militant strike, J&K government removes 43rd CRPF picket from Srinagar" );
+        Util.getDB().insert( DemoDatabase.NEWS_TABLE, cv );
+        
+        cv.put( DataProvider.News.HEADLINE, "France elections: Campaign crescendo" );
+        Util.getDB().insert( DemoDatabase.NEWS_TABLE, cv );
+        
+        cv.put( DataProvider.News.HEADLINE, "South Sudan 'to withdraw troops from Heglig oil field" );
+        Util.getDB().insert( DemoDatabase.NEWS_TABLE, cv );
+        
+        cv.put( DataProvider.News.HEADLINE, "Suu Kyi MPs may refuse Myanmar seats over oath row" );
+        Util.getDB().insert( DemoDatabase.NEWS_TABLE, cv );
+*/
+        
         showSplash( this, null );
     }
 

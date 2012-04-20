@@ -5,20 +5,17 @@ import android.provider.BaseColumns;
 
 public class DataProvider
 {
-    public static final String AUTHORITY = DemoDatabase.class.getName();
-
     private DataProvider()
     {}
 
-    public static final Uri CUSTOMQUERY = Uri.parse( "content://" + AUTHORITY + "/customquery" );
-
-    public static final class Test implements BaseColumns
+    public static final class News implements BaseColumns
     {
-        private Test()
+        private News()
         {}
-        public static final Uri CONTENT_URI = Uri.parse( "content://" + AUTHORITY + "/test" );
-        public static final String NAME = "name";
-        public static final String NUMBER = "number";
-        public static final String ADDRESS = "address";
+        public static final Uri CONTENT_URI = Uri.parse( DemoDatabase.DATABASE_PATH + "/news" );
+        public static final String HEADLINE = "headline";
+        public static final String SUMMARY = "summary";
+        public static final String SOURCE_URL = "source_url";
+        public static final String PICTURE = "picture";
     }
 }
