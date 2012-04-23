@@ -51,7 +51,7 @@ public class DemoDatabase
         marketsProjectionMap.put( DataProvider.Markets._ID, DataProvider.Markets._ID );
         marketsProjectionMap.put( DataProvider.Markets.INDICE, DataProvider.Markets.INDICE );
         marketsProjectionMap.put( DataProvider.Markets.CURRENT_VAL, DataProvider.Markets.CURRENT_VAL );
-        marketsProjectionMap.put( DataProvider.Markets.LAST_VAL, DataProvider.Markets.LAST_VAL );
+        marketsProjectionMap.put( DataProvider.Markets.CHANGE, DataProvider.Markets.CHANGE );
         
     }
 
@@ -85,7 +85,7 @@ public class DemoDatabase
             table += DataProvider.Markets._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,";
             table += DataProvider.Markets.INDICE + " varchar not null,";
             table += DataProvider.Markets.CURRENT_VAL + " varchar,";
-            table += DataProvider.Markets.LAST_VAL + " varchar);";
+            table += DataProvider.Markets.CHANGE + " varchar);";
             argDB.execSQL( table );
 
         }

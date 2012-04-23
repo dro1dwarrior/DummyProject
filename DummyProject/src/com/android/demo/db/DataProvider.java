@@ -26,7 +26,7 @@ public class DataProvider
         public static final Uri CONTENT_URI = Uri.parse( DemoDatabase.DATABASE_PATH + "/markets" );
         public static final String INDICE = "indice";
         public static final String CURRENT_VAL = "vurrent_val";
-        public static final String LAST_VAL = "last_val";
+        public static final String CHANGE = "change";
         
     }
 }

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  				android:layout_height="50dp" 
+  				android:layout_width="fill_parent"
+  				android:padding="6dip">
+
+	<TextView android:id="@+id/markets_indice" 
+			  android:gravity="left" 
+			  android:layout_height="wrap_content"
+			  android:ellipsize="end"
+			  android:text="ddfgdfgfdgdg"
+			  android:layout_width="wrap_content" 
+			  android:layout_marginLeft="5dip"
+			  android:layout_marginRight="20dip"
+			  android:layout_centerVertical="true"
+			  />
+	
+	<ImageView android:id="@+id/markets_arrow" 
+			   android:layout_width="wrap_content"
+			   android:layout_height="wrap_content"
+			   android:layout_margin="6dip"
+			   android:scaleType="fitXY" 
+			   android:layout_centerVertical="true"
+			   android:layout_alignParentRight="true"
+			   android:src="@drawable/arrow"/>
+	
+	<TextView android:id="@+id/markets_change" 
+			  android:layout_height="wrap_content"
+			  android:text="16500"
+			  android:layout_width="wrap_content" 
+			  android:layout_marginRight="5dip"
+			  android:layout_centerVertical="true"
+			  android:layout_toLeftOf="@+id/markets_arrow"
+			  />
+				  
+	<TextView android:id="@+id/markets_current_val" 
+			  android:layout_height="wrap_content"
+			  android:text="17000"
+			  android:layout_width="wrap_content" 
+			  android:layout_marginRight="5dip"
+			  android:layout_centerVertical="true"
+			  android:layout_toLeftOf="@+id/markets_change"
+			  />		 				  
+</RelativeLayout>

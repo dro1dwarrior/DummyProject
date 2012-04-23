@@ -28,9 +28,9 @@ public class DemoProjectActivity extends TabActivity
                  .setIndicator( inflater1.inflate( R.layout.tabnews, getTabWidget(), false ) )
                  .setContent( intent ) );
 
-        intent = new Intent().setClass( this, StocksTab.class );
+        intent = new Intent().setClass( this, MarketsTab.class );
         LayoutInflater inflater2 = LayoutInflater.from( this );
-        m_tabHost.addTab( m_tabHost.newTabSpec( getString( R.string.stocks_tab ) )
+        m_tabHost.addTab( m_tabHost.newTabSpec( getString( R.string.markets_tab ) )
                  .setIndicator( inflater2.inflate( R.layout.tabstocks, getTabWidget(), false ) )
                  .setContent( intent ) );
 

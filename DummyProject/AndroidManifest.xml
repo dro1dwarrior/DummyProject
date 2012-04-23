@@ -24,7 +24,7 @@
             android:configChanges="keyboardHidden|orientation" >
         </activity>
         <activity
-            android:name=".StocksTab"
+            android:name=".MarketsTab"
             android:configChanges="keyboardHidden|orientation" >
         </activity>
         <activity

@@ -36,8 +36,8 @@ public class SplashScreen extends Activity
         Util.setAppContext( this );
         Util.setNetworkStatus();
 
-       // fillNewsTable();
-       // fillMarketsTable();
+        fillNewsTable();
+        fillMarketsTable();
         
         showSplash( this, null );
     }
@@ -147,37 +147,37 @@ public class SplashScreen extends Activity
         ContentValues cv = new ContentValues();
         cv.put( DataProvider.Markets.INDICE, "SENSEX" );
         cv.put( DataProvider.Markets.CURRENT_VAL, "17,383.12" );
-        cv.put( DataProvider.Markets.LAST_VAL, "17,193.12" );
+        cv.put( DataProvider.Markets.CHANGE, "+185" );
         Util.getDB().insert( DemoDatabase.MARKETS_TABLE, cv );
         
         cv.put( DataProvider.Markets.INDICE, "NIFTY" );
         cv.put( DataProvider.Markets.CURRENT_VAL, "5290.05" );
-        cv.put( DataProvider.Markets.LAST_VAL, "5275.00" );
+        cv.put( DataProvider.Markets.CHANGE, "+50" );
         Util.getDB().insert( DemoDatabase.MARKETS_TABLE, cv );
         
         cv.put( DataProvider.Markets.INDICE, "BSE500" );
         cv.put( DataProvider.Markets.CURRENT_VAL, "6780.50" );
-        cv.put( DataProvider.Markets.LAST_VAL, "6720.50" );
+        cv.put( DataProvider.Markets.CHANGE, "+30" );
         Util.getDB().insert( DemoDatabase.MARKETS_TABLE, cv );
         
         cv.put( DataProvider.Markets.INDICE, "CNXMIDCAP" );
         cv.put( DataProvider.Markets.CURRENT_VAL, "7631.50" );
-        cv.put( DataProvider.Markets.LAST_VAL, "7610.50" );
+        cv.put( DataProvider.Markets.CHANGE, "+40" );
         Util.getDB().insert( DemoDatabase.MARKETS_TABLE, cv );
         
         cv.put( DataProvider.Markets.INDICE, "GOLD" );
         cv.put( DataProvider.Markets.CURRENT_VAL, "7631.50" );
-        cv.put( DataProvider.Markets.LAST_VAL, "7610.50" );
+        cv.put( DataProvider.Markets.CHANGE, "200" );
         Util.getDB().insert( DemoDatabase.MARKETS_TABLE, cv );
         
         cv.put( DataProvider.Markets.INDICE, "SILVER" );
         cv.put( DataProvider.Markets.CURRENT_VAL, "7631.50" );
-        cv.put( DataProvider.Markets.LAST_VAL, "7610.50" );
+        cv.put( DataProvider.Markets.CHANGE, "400" );
         Util.getDB().insert( DemoDatabase.MARKETS_TABLE, cv );
         
         cv.put( DataProvider.Markets.INDICE, "CRUDE_OIL" );
         cv.put( DataProvider.Markets.CURRENT_VAL, "7631.50" );
-        cv.put( DataProvider.Markets.LAST_VAL, "7610.50" );
+        cv.put( DataProvider.Markets.CHANGE, "80" );
         Util.getDB().insert( DemoDatabase.MARKETS_TABLE, cv );
     }
 }
