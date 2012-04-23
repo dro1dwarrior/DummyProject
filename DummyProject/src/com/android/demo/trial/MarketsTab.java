@@ -23,19 +23,19 @@ public class MarketsTab extends ListActivity
 {
     private ListAdapter m_adapter = null;
     Cursor m_Cursor;
-    
+
     @Override
     protected void onCreate( Bundle savedInstanceState )
     {
         super.onCreate( savedInstanceState );
-        setContentView( R.layout.newsactivity);
-        
-        m_Cursor = Util.getDB().query( DemoDatabase.MARKETS_TABLE, null, null, null, null,null,null );
+        setContentView( R.layout.newsactivity );
+
+        m_Cursor = Util.getDB().query( DemoDatabase.MARKETS_TABLE, null, null, null, null, null, null );
         startManagingCursor( m_Cursor );
         m_adapter = new MarketsAdapter( this, m_Cursor, true );
-        getListView().setAdapter( m_adapter );        
+        getListView().setAdapter( m_adapter );
     }
-    
+
     public class MarketsAdapter extends CursorAdapter
     {
         private LayoutInflater inflater;
@@ -58,16 +58,24 @@ public class MarketsTab extends ListActivity
             TextView textIndice = (TextView) view.findViewById( R.id.markets_indice );
             TextView textCurrentVal = (TextView) view.findViewById( R.id.markets_current_val );
             TextView textChange = (TextView) view.findViewById( R.id.markets_change );
-            
+
             String szIndice = cursor.getString( cursor.getColumnIndex( DataProvider.Markets.INDICE ) );
             String szCurrentVal = cursor.getString( cursor.getColumnIndex( DataProvider.Markets.CURRENT_VAL ) );
             String szChange = cursor.getString( cursor.getColumnIndex( DataProvider.Markets.CHANGE ) );
-            
+
             textIndice.setText( szIndice );
             textCurrentVal.setText( szCurrentVal );
-            textCurrentVal.setTextColor( R.color.green );
             textChange.setText( szChange );
-            textChange.setBackgroundColor( R.color.green );
+            if(szChange.contains( "+" ))
+            {
+                textCurrentVal.setTextColor( getResources().getColor( R.color.green ) );
+                textChange.setTextColor( getResources().getColor( R.color.green ) );
+            }
+            else
+            {
+                textCurrentVal.setTextColor( getResources().getColor( R.color.red ) );
+                textChange.setTextColor( getResources().getColor( R.color.red ) );
+            }
         }
 
         @Override
