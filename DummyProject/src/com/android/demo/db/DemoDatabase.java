@@ -31,8 +31,10 @@ public class DemoDatabase
     public  static final String DATABASE_PATH = "/data/data/com.android.demo.trial/databases/"+DATABASE_NAME;
 
     public static final String NEWS_TABLE = "news";
+    public static final String MARKETS_TABLE = "markets";
 
     private static HashMap< String, String > newsProjectionMap;
+    private static HashMap< String, String > marketsProjectionMap;
 
     public static Context applicationContext;
     
@@ -44,6 +46,13 @@ public class DemoDatabase
         newsProjectionMap.put( DataProvider.News.SUMMARY, DataProvider.News.SUMMARY );
         newsProjectionMap.put( DataProvider.News.SOURCE_URL, DataProvider.News.SOURCE_URL );
         newsProjectionMap.put( DataProvider.News.PICTURE, DataProvider.News.PICTURE );
+        
+        marketsProjectionMap = new HashMap< String, String >();
+        marketsProjectionMap.put( DataProvider.Markets._ID, DataProvider.Markets._ID );
+        marketsProjectionMap.put( DataProvider.Markets.INDICE, DataProvider.Markets.INDICE );
+        marketsProjectionMap.put( DataProvider.Markets.CURRENT_VAL, DataProvider.Markets.CURRENT_VAL );
+        marketsProjectionMap.put( DataProvider.Markets.LAST_VAL, DataProvider.Markets.LAST_VAL );
+        
     }
 
     /**
@@ -69,6 +78,14 @@ public class DemoDatabase
             table += DataProvider.News.SUMMARY + " varchar,";
             table += DataProvider.News.SOURCE_URL + " varchar,";
             table += DataProvider.News.PICTURE + " varchar);";
+            argDB.execSQL( table );
+            
+            table = "";
+            table = "CREATE TABLE IF NOT EXISTS " + MARKETS_TABLE + " (";
+            table += DataProvider.Markets._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,";
+            table += DataProvider.Markets.INDICE + " varchar not null,";
+            table += DataProvider.Markets.CURRENT_VAL + " varchar,";
+            table += DataProvider.Markets.LAST_VAL + " varchar);";
             argDB.execSQL( table );
 
         }

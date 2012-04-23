@@ -35,56 +35,9 @@ public class SplashScreen extends Activity
 
         Util.setAppContext( this );
         Util.setNetworkStatus();
- 
-/*        
-        Util.getDB().delete( DemoDatabase.NEWS_TABLE, null, null );
-        
-        ContentValues cv = new ContentValues();
-        cv.put( DataProvider.News.HEADLINE, "Mining scam: SC panel for CBI probe against Yeddyurappa kin" );
-        Util.getDB().insert( DemoDatabase.NEWS_TABLE, cv );
-        
-        cv.put( DataProvider.News.HEADLINE, "Reforms shutdown till 2014? Kaushik Basu's statement sparks political storm" );
-        Util.getDB().insert( DemoDatabase.NEWS_TABLE, cv );
-       
-        cv.put( DataProvider.News.HEADLINE, "Reforms shutdown till 2014? Kaushik Basu's statement sparks political storm" );
-        Util.getDB().insert( DemoDatabase.NEWS_TABLE, cv );
-        
-        cv.put( DataProvider.News.HEADLINE, "Reforms shutdown till 2014? Kaushik Basu's statement sparks political storm" );
-        Util.getDB().insert( DemoDatabase.NEWS_TABLE, cv );
-        
-        cv.put( DataProvider.News.HEADLINE, "Fed up with army, Egyptians back in Tahrir Square" );
-        Util.getDB().insert( DemoDatabase.NEWS_TABLE, cv );
-        
-        cv.put( DataProvider.News.HEADLINE, "'I am a very likeable person,' Breivik tells court" );
-        Util.getDB().insert( DemoDatabase.NEWS_TABLE, cv );
-        
-        cv.put( DataProvider.News.HEADLINE, "Ed Miliband calls for cancellation of Bahrain Grand Prix" );
-        Util.getDB().insert( DemoDatabase.NEWS_TABLE, cv );
-        
-        cv.put( DataProvider.News.HEADLINE, "Smaller Apple iPad: Why it's both a good and bad idea" );
-        Util.getDB().insert( DemoDatabase.NEWS_TABLE, cv );
-        
-        cv.put( DataProvider.News.HEADLINE, "Assam should become a growth engine: PM" );
-        Util.getDB().insert( DemoDatabase.NEWS_TABLE, cv );
-        
-        cv.put( DataProvider.News.HEADLINE, "Abhishek Manu Singhvi, his ex-driver inform HC about settlement" );
-        Util.getDB().insert( DemoDatabase.NEWS_TABLE, cv );
-        
-        cv.put( DataProvider.News.HEADLINE, "Hazare, Ramdev to hold joint fast on June 3" );
-        Util.getDB().insert( DemoDatabase.NEWS_TABLE, cv );
-        
-        cv.put( DataProvider.News.HEADLINE, "Amid militant strike, J&K government removes 43rd CRPF picket from Srinagar" );
-        Util.getDB().insert( DemoDatabase.NEWS_TABLE, cv );
-        
-        cv.put( DataProvider.News.HEADLINE, "France elections: Campaign crescendo" );
-        Util.getDB().insert( DemoDatabase.NEWS_TABLE, cv );
-        
-        cv.put( DataProvider.News.HEADLINE, "South Sudan 'to withdraw troops from Heglig oil field" );
-        Util.getDB().insert( DemoDatabase.NEWS_TABLE, cv );
-        
-        cv.put( DataProvider.News.HEADLINE, "Suu Kyi MPs may refuse Myanmar seats over oath row" );
-        Util.getDB().insert( DemoDatabase.NEWS_TABLE, cv );
-*/
+
+       // fillNewsTable();
+       // fillMarketsTable();
         
         showSplash( this, null );
     }
@@ -135,5 +88,96 @@ public class SplashScreen extends Activity
             }
         }
         return true;
+    }
+    private void fillNewsTable()
+    {
+        Util.getDB().delete( DemoDatabase.NEWS_TABLE, null, null );
+        
+        ContentValues cv = new ContentValues();
+        cv.put( DataProvider.News.HEADLINE, "Mining scam: SC panel for CBI probe against Yeddyurappa kin" );
+        Util.getDB().insert( DemoDatabase.NEWS_TABLE, cv );
+        
+        cv.put( DataProvider.News.HEADLINE, "Reforms shutdown till 2014? Kaushik Basu's statement sparks political storm" );
+        Util.getDB().insert( DemoDatabase.NEWS_TABLE, cv );
+       
+        cv.put( DataProvider.News.HEADLINE, "Reforms shutdown till 2014? Kaushik Basu's statement sparks political storm" );
+        Util.getDB().insert( DemoDatabase.NEWS_TABLE, cv );
+        
+        cv.put( DataProvider.News.HEADLINE, "Reforms shutdown till 2014? Kaushik Basu's statement sparks political storm" );
+        Util.getDB().insert( DemoDatabase.NEWS_TABLE, cv );
+        
+        cv.put( DataProvider.News.HEADLINE, "Fed up with army, Egyptians back in Tahrir Square" );
+        Util.getDB().insert( DemoDatabase.NEWS_TABLE, cv );
+        
+        cv.put( DataProvider.News.HEADLINE, "'I am a very likeable person,' Breivik tells court" );
+        Util.getDB().insert( DemoDatabase.NEWS_TABLE, cv );
+        
+        cv.put( DataProvider.News.HEADLINE, "Ed Miliband calls for cancellation of Bahrain Grand Prix" );
+        Util.getDB().insert( DemoDatabase.NEWS_TABLE, cv );
+        
+        cv.put( DataProvider.News.HEADLINE, "Smaller Apple iPad: Why it's both a good and bad idea" );
+        Util.getDB().insert( DemoDatabase.NEWS_TABLE, cv );
+        
+        cv.put( DataProvider.News.HEADLINE, "Assam should become a growth engine: PM" );
+        Util.getDB().insert( DemoDatabase.NEWS_TABLE, cv );
+        
+        cv.put( DataProvider.News.HEADLINE, "Abhishek Manu Singhvi, his ex-driver inform HC about settlement" );
+        Util.getDB().insert( DemoDatabase.NEWS_TABLE, cv );
+        
+        cv.put( DataProvider.News.HEADLINE, "Hazare, Ramdev to hold joint fast on June 3" );
+        Util.getDB().insert( DemoDatabase.NEWS_TABLE, cv );
+        
+        cv.put( DataProvider.News.HEADLINE, "Amid militant strike, J&K government removes 43rd CRPF picket from Srinagar" );
+        Util.getDB().insert( DemoDatabase.NEWS_TABLE, cv );
+        
+        cv.put( DataProvider.News.HEADLINE, "France elections: Campaign crescendo" );
+        Util.getDB().insert( DemoDatabase.NEWS_TABLE, cv );
+        
+        cv.put( DataProvider.News.HEADLINE, "South Sudan 'to withdraw troops from Heglig oil field" );
+        Util.getDB().insert( DemoDatabase.NEWS_TABLE, cv );
+        
+        cv.put( DataProvider.News.HEADLINE, "Suu Kyi MPs may refuse Myanmar seats over oath row" );
+        Util.getDB().insert( DemoDatabase.NEWS_TABLE, cv );
+        
+    }
+    private void fillMarketsTable()
+    {
+        Util.getDB().delete( DemoDatabase.MARKETS_TABLE, null, null );
+        
+        ContentValues cv = new ContentValues();
+        cv.put( DataProvider.Markets.INDICE, "SENSEX" );
+        cv.put( DataProvider.Markets.CURRENT_VAL, "17,383.12" );
+        cv.put( DataProvider.Markets.LAST_VAL, "17,193.12" );
+        Util.getDB().insert( DemoDatabase.MARKETS_TABLE, cv );
+        
+        cv.put( DataProvider.Markets.INDICE, "NIFTY" );
+        cv.put( DataProvider.Markets.CURRENT_VAL, "5290.05" );
+        cv.put( DataProvider.Markets.LAST_VAL, "5275.00" );
+        Util.getDB().insert( DemoDatabase.MARKETS_TABLE, cv );
+        
+        cv.put( DataProvider.Markets.INDICE, "BSE500" );
+        cv.put( DataProvider.Markets.CURRENT_VAL, "6780.50" );
+        cv.put( DataProvider.Markets.LAST_VAL, "6720.50" );
+        Util.getDB().insert( DemoDatabase.MARKETS_TABLE, cv );
+        
+        cv.put( DataProvider.Markets.INDICE, "CNXMIDCAP" );
+        cv.put( DataProvider.Markets.CURRENT_VAL, "7631.50" );
+        cv.put( DataProvider.Markets.LAST_VAL, "7610.50" );
+        Util.getDB().insert( DemoDatabase.MARKETS_TABLE, cv );
+        
+        cv.put( DataProvider.Markets.INDICE, "GOLD" );
+        cv.put( DataProvider.Markets.CURRENT_VAL, "7631.50" );
+        cv.put( DataProvider.Markets.LAST_VAL, "7610.50" );
+        Util.getDB().insert( DemoDatabase.MARKETS_TABLE, cv );
+        
+        cv.put( DataProvider.Markets.INDICE, "SILVER" );
+        cv.put( DataProvider.Markets.CURRENT_VAL, "7631.50" );
+        cv.put( DataProvider.Markets.LAST_VAL, "7610.50" );
+        Util.getDB().insert( DemoDatabase.MARKETS_TABLE, cv );
+        
+        cv.put( DataProvider.Markets.INDICE, "CRUDE_OIL" );
+        cv.put( DataProvider.Markets.CURRENT_VAL, "7631.50" );
+        cv.put( DataProvider.Markets.LAST_VAL, "7610.50" );
+        Util.getDB().insert( DemoDatabase.MARKETS_TABLE, cv );
     }
 }
