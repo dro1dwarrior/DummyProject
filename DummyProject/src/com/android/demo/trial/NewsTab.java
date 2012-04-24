@@ -2,6 +2,7 @@ package com.android.demo.trial;
 
 import android.app.ListActivity;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
@@ -36,6 +37,21 @@ public class NewsTab extends ListActivity
         getListView().setAdapter( m_adapter );        
     }
     
+    @Override
+    public void onListItemClick( android.widget.ListView l, View v, int nPosition, long id )
+    {
+        // TODO Auto-generated method stub
+        String sz_NewsUrl = "";
+        sz_NewsUrl = ( (TextView) v.findViewById( R.id.news_url ) ).getText().toString();
+
+        Intent intent = new Intent( getBaseContext(), NewsActivity.class );
+        intent.putExtra( "news_url", sz_NewsUrl );
+        intent.setFlags( Intent.FLAG_ACTIVITY_NEW_TASK );
+        intent.addFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP );
+        startActivity( intent );
+        // finish();
+    }
+    
     public class NewsAdapter extends CursorAdapter
     {
         private LayoutInflater inflater;
@@ -56,10 +72,13 @@ public class NewsTab extends ListActivity
         {
             // TODO Auto-generated method stub
             TextView textHeadline = (TextView) view.findViewById( R.id.news_headline );
+            TextView textURL = (TextView) view.findViewById( R.id.news_url );
             
             String szHeadline = cursor.getString( cursor.getColumnIndex( DataProvider.News.HEADLINE ) );
+            String szURL = cursor.getString( cursor.getColumnIndex( DataProvider.News.SOURCE_URL ) );
             
             textHeadline.setText( szHeadline );
+            textURL.setText( szURL );
         }
 
         @Override

@@ -35,9 +35,12 @@
             android:name=".SubscriptionTab"
             android:configChanges="keyboardHidden|orientation" >
         </activity>
-        
-        
-        
-    	    
+        <activity
+            android:name=".NewsActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:label="">
+        </activity>
     </application>
+    
+    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>

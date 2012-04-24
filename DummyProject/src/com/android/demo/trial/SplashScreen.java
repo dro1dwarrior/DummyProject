@@ -94,49 +94,60 @@ public class SplashScreen extends Activity
         Util.getDB().delete( DemoDatabase.NEWS_TABLE, null, null );
         
         ContentValues cv = new ContentValues();
-        cv.put( DataProvider.News.HEADLINE, "Mining scam: SC panel for CBI probe against Yeddyurappa kin" );
+        cv.put( DataProvider.News.HEADLINE, "Collector's abduction: Bhushan refuses to mediate" );
+        cv.put( DataProvider.News.SOURCE_URL, "http://www.hindustantimes.com/India-news/NewDelhi/Collector-s-abduction-Bhushan-refuses-to-mediate/Article1-845263.aspx" );
         Util.getDB().insert( DemoDatabase.NEWS_TABLE, cv );
         
-        cv.put( DataProvider.News.HEADLINE, "Reforms shutdown till 2014? Kaushik Basu's statement sparks political storm" );
+        cv.put( DataProvider.News.HEADLINE, "Norway custody row ends, children return to India" );
+        cv.put( DataProvider.News.SOURCE_URL, "http://www.indianexpress.com/news/norway-custody-row-ends-children-return-to-india/940825/" );
         Util.getDB().insert( DemoDatabase.NEWS_TABLE, cv );
        
-        cv.put( DataProvider.News.HEADLINE, "Reforms shutdown till 2014? Kaushik Basu's statement sparks political storm" );
+        cv.put( DataProvider.News.HEADLINE, "The Abhishek Manu Singhvi Test of English" );
+        cv.put( DataProvider.News.SOURCE_URL, "http://www.firstpost.com/india/the-abhishek-manu-singhvi-test-of-english-286347.html" );
         Util.getDB().insert( DemoDatabase.NEWS_TABLE, cv );
         
-        cv.put( DataProvider.News.HEADLINE, "Reforms shutdown till 2014? Kaushik Basu's statement sparks political storm" );
+        cv.put( DataProvider.News.HEADLINE, "Happy birthday, Sachin Tendulkar" );
+        cv.put( DataProvider.News.SOURCE_URL, "http://www.dnaindia.com/sport/report_happy-birthday-sachin-tendulkar_1679855" );
         Util.getDB().insert( DemoDatabase.NEWS_TABLE, cv );
         
-        cv.put( DataProvider.News.HEADLINE, "Fed up with army, Egyptians back in Tahrir Square" );
+        cv.put( DataProvider.News.HEADLINE, "Infosys vs TCS: a study in contrasts" );
+        cv.put( DataProvider.News.SOURCE_URL, "http://in.reuters.com/article/2012/04/24/india-infosys-tcs-idINDEE83N02W20120424" );
         Util.getDB().insert( DemoDatabase.NEWS_TABLE, cv );
         
-        cv.put( DataProvider.News.HEADLINE, "'I am a very likeable person,' Breivik tells court" );
+        cv.put( DataProvider.News.HEADLINE, "US supports India closing missile gap with China: Think tank" );
+        cv.put( DataProvider.News.SOURCE_URL, "http://www.hindustantimes.com/world-news/Americas/US-supports-India-closing-missile-gap-with-China-Think-tank/Article1-845258.aspx" );
         Util.getDB().insert( DemoDatabase.NEWS_TABLE, cv );
         
-        cv.put( DataProvider.News.HEADLINE, "Ed Miliband calls for cancellation of Bahrain Grand Prix" );
+        cv.put( DataProvider.News.HEADLINE, "Sathya Sai Trust divided on Baba idol placement? " );
+        cv.put( DataProvider.News.SOURCE_URL, "http://ibnlive.in.com/news/sathya-sai-trust-divided-on-baba-idol-placement/251466-60-114.html" );
         Util.getDB().insert( DemoDatabase.NEWS_TABLE, cv );
         
-        cv.put( DataProvider.News.HEADLINE, "Smaller Apple iPad: Why it's both a good and bad idea" );
+        cv.put( DataProvider.News.HEADLINE, "Trial sharpens focus on Breivik's mental state" );
+        cv.put( DataProvider.News.SOURCE_URL, "http://www.google.com/hostednews/ap/article/ALeqM5ia0Z4CEzLa5aMaLUND4ReJoegSWA?docId=fd5666d9d6bf4641a6078b62c5ed5003" );
         Util.getDB().insert( DemoDatabase.NEWS_TABLE, cv );
         
-        cv.put( DataProvider.News.HEADLINE, "Assam should become a growth engine: PM" );
+        cv.put( DataProvider.News.HEADLINE, "UN condemns Sudan air raids on rival South" );
+        cv.put( DataProvider.News.SOURCE_URL, "http://timesofindia.indiatimes.com/world/rest-of-world/UN-condemns-Sudan-air-raids-on-rival-South/articleshow/12847877.cms" );
         Util.getDB().insert( DemoDatabase.NEWS_TABLE, cv );
         
-        cv.put( DataProvider.News.HEADLINE, "Abhishek Manu Singhvi, his ex-driver inform HC about settlement" );
+        cv.put( DataProvider.News.HEADLINE, "Exclusive: China firm boasts about missile-linked North Korea sale: envoys" );
+        cv.put( DataProvider.News.SOURCE_URL, "http://www.reuters.com/article/2012/04/24/us-korea-north-china-idUSBRE83N05S20120424" );
         Util.getDB().insert( DemoDatabase.NEWS_TABLE, cv );
         
-        cv.put( DataProvider.News.HEADLINE, "Hazare, Ramdev to hold joint fast on June 3" );
+        cv.put( DataProvider.News.HEADLINE, "Fresh firing kills 28 civilians in Syria's Hama" );
+        cv.put( DataProvider.News.SOURCE_URL, "http://zeenews.india.com/news/world/fresh-firing-kills-28-civilians-in-syria-s-hama_771405.html" );
         Util.getDB().insert( DemoDatabase.NEWS_TABLE, cv );
         
-        cv.put( DataProvider.News.HEADLINE, "Amid militant strike, J&K government removes 43rd CRPF picket from Srinagar" );
+        cv.put( DataProvider.News.HEADLINE, "Sensex gains 70 points in early trade, TCS up 9.85%" );
+        cv.put( DataProvider.News.SOURCE_URL, "http://www.mydigitalfc.com/stock-market/sensex-gains-70-points-early-trade-tcs-985-195" );
         Util.getDB().insert( DemoDatabase.NEWS_TABLE, cv );
         
-        cv.put( DataProvider.News.HEADLINE, "France elections: Campaign crescendo" );
+        cv.put( DataProvider.News.HEADLINE, "5 reasons why telecom stocks have fallen" );
+        cv.put( DataProvider.News.SOURCE_URL, "http://profit.ndtv.com/News/Article/5-reasons-why-telecom-stocks-have-fallen-302653" );
         Util.getDB().insert( DemoDatabase.NEWS_TABLE, cv );
         
-        cv.put( DataProvider.News.HEADLINE, "South Sudan 'to withdraw troops from Heglig oil field" );
-        Util.getDB().insert( DemoDatabase.NEWS_TABLE, cv );
-        
-        cv.put( DataProvider.News.HEADLINE, "Suu Kyi MPs may refuse Myanmar seats over oath row" );
+        cv.put( DataProvider.News.HEADLINE, "Rupee at 3-1/2 month low; intervention eyed" );
+        cv.put( DataProvider.News.SOURCE_URL, "http://in.reuters.com/article/2012/04/24/market-eye-india-rupee-idINDEE83N02020120424" );
         Util.getDB().insert( DemoDatabase.NEWS_TABLE, cv );
         
     }
