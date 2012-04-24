@@ -50,6 +50,11 @@
             android:name=".Quote"
             android:configChanges="keyboardHidden|orientation" >
         </activity>
+        <activity
+            android:name=".ServiceInfoPageActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:theme="@android:style/Theme.NoTitleBar">
+        </activity>
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />

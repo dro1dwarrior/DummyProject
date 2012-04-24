@@ -7,6 +7,7 @@ import java.util.Map;
 
 import android.app.ExpandableListActivity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -29,6 +30,7 @@ import android.widget.ExpandableListView.OnGroupClickListener;
 
 public class SubscriptionTab extends ExpandableListActivity
 {
+    private final String m_szAssetsFile = "file:///android_asset/%s%s.html" ;
     ExpandableListAdapter m_Adapter;
 
     public final int[] group_drawables = { R.drawable.service_equity, R.drawable.service_commodity, R.drawable.service_ace, R.drawable.service_options };
@@ -57,6 +59,13 @@ public class SubscriptionTab extends ExpandableListActivity
     public boolean onChildClick( ExpandableListView parent, View v, int groupPosition, int childPosition, long id )
     {
         Log.d("Demo Project","Inside onChildClick at groupPosition = " + groupPosition + " Child clicked at position " + childPosition );
+        Intent intent = new Intent( getBaseContext(), ServiceInfoPageActivity.class );
+        String szFilename = String.format(m_szAssetsFile,String.valueOf(groupPosition),String.valueOf(childPosition));
+        intent.putExtra( "service_details_file",szFilename);
+        intent.setFlags( Intent.FLAG_ACTIVITY_NEW_TASK );
+        intent.addFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP );
+        startActivity( intent );
+        Log.d("Demo Project","Filename : " + szFilename);
         return true;
     }
     
