@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="hello">Hello World, DemoProjectActivity!</string>
     <string name="app_name">Demo Project</string>
     <string name="news_tab">News</string>
     <string name="markets_tab">Markets</string>
     <string name="get_quotes_tab">Stocks</string>
     <string name="subscription_tab">Services</string>
-    
+    <string name="networknotavailable">Network not available. Please try later!</string>
+
 </resources>

@@ -13,9 +13,11 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.android.demo.util.Util;
 import com.google.android.maps.Overlay.Snappable;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
@@ -32,6 +34,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 // import com.geodesic.android.universalIM.GoogleAnalytics.GoogleAnalytics;
 
@@ -41,6 +44,7 @@ public class GetQuotesTab extends Activity
     private String m_szYahooURL1 = "&callback=YAHOO.Finance.SymbolSuggest.ssCallback";
     YahooSymbolList symbols;
     ListView quotesList;
+    ProgressDialog m_searchProgress = null;
 
     @Override
     protected void onCreate( Bundle savedInstanceState )
@@ -49,6 +53,7 @@ public class GetQuotesTab extends Activity
         setContentView( R.layout.getquotesactivity );
 
         // GoogleAnalytics.trackPageView( this, GoogleAnalytics.FAVORITESTAB_PAGE );
+        Util.setNetworkStatus();
 
         Button btnSearch = (Button) findViewById( R.id.btnSearch );
         btnSearch.setOnClickListener( new OnClickListener()
@@ -63,62 +68,71 @@ public class GetQuotesTab extends Activity
                 szSearchString = szSearchString.replace( " ", "%20" );
                 final String szQueryURL = m_szYahooURL + szSearchString + m_szYahooURL1;
 
-                String szSymbol = "";
-                String szName = "";
-                String szExch = "";
-                String szType = "";
-                try
+                if( Util.getNetworkStatus() )
                 {
-                    HttpClient httpclient = new DefaultHttpClient();
-                    HttpGet request = new HttpGet();
-                    request.setURI( new URI( szQueryURL ) );
-                    HttpResponse response = httpclient.execute( request );
-                    String szResponse = inputStreamToString( response.getEntity().getContent() ).toString();
-                    Log.d( "GetQuotesTab", "Response is :" + szResponse );
-                    if( !szResponse.startsWith( "Error" ) )
+                    m_searchProgress = ProgressDialog.show( GetQuotesTab.this, "Fetching result", "Please wait..." );
+                    m_searchProgress.setCancelable( true );
+                    String szSymbol = "";
+                    String szName = "";
+                    String szExch = "";
+                    String szType = "";
+                    try
                     {
-                        szResponse = szResponse.substring( szResponse.indexOf( '(' ) + 1, szResponse.length() - 1 );
-
-                        JSONObject mainObject = new JSONObject( szResponse );
-                        JSONObject resultSet = mainObject.getJSONObject( "ResultSet" );
-                        JSONArray result = resultSet.getJSONArray( "Result" );
-
-                        if( result.length() > 0 )
+                        HttpClient httpclient = new DefaultHttpClient();
+                        HttpGet request = new HttpGet();
+                        request.setURI( new URI( szQueryURL ) );
+                        HttpResponse response = httpclient.execute( request );
+                        String szResponse = inputStreamToString( response.getEntity().getContent() ).toString();
+                        Log.d( "GetQuotesTab", "Response is :" + szResponse );
+                        if( !szResponse.startsWith( "Error" ) )
                         {
-                            symbols = new YahooSymbolList();
-                            for( int i = 0; i < result.length(); ++i )
+                            szResponse = szResponse.substring( szResponse.indexOf( '(' ) + 1, szResponse.length() - 1 );
+
+                            JSONObject mainObject = new JSONObject( szResponse );
+                            JSONObject resultSet = mainObject.getJSONObject( "ResultSet" );
+                            JSONArray result = resultSet.getJSONArray( "Result" );
+
+                            if( result.length() > 0 )
                             {
-                                JSONObject item = result.getJSONObject( i );
-                                szSymbol = ( item.getString( "symbol" ) );
-                                szName = ( item.getString( "name" ) );
-                                szExch = ( item.getString( "exch" ) );
-                                szType = ( item.getString( "type" ) );
+                                symbols = new YahooSymbolList();
+                                for( int i = 0; i < result.length(); ++i )
+                                {
+                                    JSONObject item = result.getJSONObject( i );
+                                    szSymbol = ( item.getString( "symbol" ) );
+                                    szName = ( item.getString( "name" ) );
+                                    szExch = ( item.getString( "exch" ) );
+                                    szType = ( item.getString( "type" ) );
 
-                                YahooSymbol obj = new YahooSymbol();
-                                obj.setSymbol( szSymbol );
-                                obj.setName( szName );
-                                obj.setExch( szExch );
-                                obj.setType( szType );
-                                symbols.add( obj );
+                                    YahooSymbol obj = new YahooSymbol();
+                                    obj.setSymbol( szSymbol );
+                                    obj.setName( szName );
+                                    obj.setExch( szExch );
+                                    obj.setType( szType );
+                                    symbols.add( obj );
 
-                                Log.d( "Parsing Data Response ", " *******  symbol: " + szSymbol );
-                                Log.d( "Parsing Data Response ", " *******  name: " + szName );
-                                Log.d( "Parsing Data Response ", " *******  exch: " + szExch );
-                                Log.d( "Parsing Data Response ", " *******  type: " + szType );
+                                    Log.d( "Parsing Data Response ", " *******  symbol: " + szSymbol );
+                                    Log.d( "Parsing Data Response ", " *******  name: " + szName );
+                                    Log.d( "Parsing Data Response ", " *******  exch: " + szExch );
+                                    Log.d( "Parsing Data Response ", " *******  type: " + szType );
+                                }
+                                handler.sendEmptyMessage( 0 );
                             }
-                            handler.sendEmptyMessage( 0 );
+                            else
+                            {
+                                Log.d( "Search-onClick", "No Results found. Try Again..." );
+                            }
                         }
-                        else
-                        {
-                            Log.d( "Search-onClick", "No Results found. Try Again..." );
-                        }
-                    }
 
+                    }
+                    catch( Exception e )
+                    {
+                        // TODO: handle exception
+                        e.printStackTrace();
+                    }
                 }
-                catch( Exception e )
+                else
                 {
-                    // TODO: handle exception
-                    e.printStackTrace();
+                    Toast.makeText( GetQuotesTab.this, getString( R.string.networknotavailable ), Toast.LENGTH_LONG ).show();
                 }
             }
 
@@ -207,6 +221,11 @@ public class GetQuotesTab extends Activity
         // TODO Auto-generated method stub
         StockListAdapter adapter = new StockListAdapter( GetQuotesTab.this, symbols );
         quotesList.setAdapter( adapter );
+        if( m_searchProgress != null )
+        {
+            m_searchProgress.dismiss();
+            m_searchProgress = null;
+        }
         TextView emptyView = (TextView) findViewById( android.R.id.empty );
         if( quotesList != null )
             emptyView.setVisibility( View.GONE );
