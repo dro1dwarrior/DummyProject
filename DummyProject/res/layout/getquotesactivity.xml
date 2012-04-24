@@ -1,19 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  android:orientation="vertical"
-  android:layout_height="fill_parent" 
-  android:layout_width="fill_parent"
-  android:background="@drawable/app_background">
-	
-	<TextView android:id="@id/android:empty"
-             android:layout_width="fill_parent" 
-             android:layout_height="fill_parent"
-             android:text="@string/get_quotes_tab" 
-             android:gravity="center" 
-             android:textColor="@color/summary"
-             android:layout_marginTop="2dip"
-             android:layout_margin="10dip"/>            
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/app_background"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/relativelayoutSearch"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp" >
+
+        <EditText
+            android:id="@+id/edittextSearch"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/btnSearch"
+            android:hint="Search" />
+
+        <Button
+            android:id="@+id/btnSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="submit" />
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/quotesList"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:cacheColorHint="@android:color/transparent"
+        android:listSelector="@android:color/transparent" />
+
+    <TextView
+        android:id="@id/android:empty"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_margin="10dip"
+        android:layout_marginTop="2dip"
+        android:gravity="center"
+        android:text="@string/get_quotes_tab"
+        android:textColor="@color/summary" />
 
 </LinearLayout>
-
