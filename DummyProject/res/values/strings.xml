@@ -5,6 +5,6 @@
     <string name="news_tab">News</string>
     <string name="markets_tab">Markets</string>
     <string name="get_quotes_tab">Stocks</string>
-    <string name="subscription_tab">Subscription</string>
+    <string name="subscription_tab">Services</string>
     
 </resources>

@@ -6,14 +6,8 @@
   android:layout_width="fill_parent"
   android:background="@drawable/app_background">
 	
-	<TextView android:id="@id/android:empty"
-             android:layout_width="fill_parent" 
-             android:layout_height="fill_parent"
-             android:text="@string/subscription_tab" 
-             android:gravity="center" 
-             android:textColor="@color/summary"
-             android:layout_marginTop="2dip"
-             android:layout_margin="10dip"/>            
-
+	<ExpandableListView android:id="@android:id/list" 
+              android:layout_width="fill_parent" 
+              android:layout_height="fill_parent" />
 </LinearLayout>
 
