@@ -7,18 +7,18 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
 
-
 public class Util
 {
     public static Context ms_AppContext;
-    private static DemoDatabase m_db=null;
-    
+    private static DemoDatabase m_db = null;
+    private static boolean ms_bNetworkStatus;
+
     public static void setAppContext( Context appContext )
     {
         ms_AppContext = appContext;
-        m_db = new DemoDatabase(ms_AppContext);
+        m_db = new DemoDatabase( ms_AppContext );
     }
-    
+
     public static void setNetworkStatus()
     {
         ConnectivityManager connectivityManager = (ConnectivityManager) ms_AppContext.getSystemService( Context.CONNECTIVITY_SERVICE );
@@ -31,21 +31,28 @@ public class Util
                 || ( activeNetInfo != null && activeNetInfo.isAvailable() && activeNetInfo.isConnected() )
                 || ( wifiInfo != null && wifiInfo.isAvailable() && wifiInfo.isConnected() ) )
         {
-         //   NetworkBroadcastReceiver.ms_bIsNetworkAvailable = true;
+            // NetworkBroadcastReceiver.ms_bIsNetworkAvailable = true;
+            ms_bNetworkStatus = true;
             Log.d( "SplashScreen-onCreate()", "NETWORK AVAILABLE" );
         }
         else
         {
+            ms_bNetworkStatus = false;
             Log.d( "SplashScreen-onCreate()", "NETWORK NOT AVAILABLE" );
-        //    NetworkBroadcastReceiver.ms_bIsNetworkAvailable = false;
+            // NetworkBroadcastReceiver.ms_bIsNetworkAvailable = false;
         }
     }
-    
+
+    public static boolean getNetworkStatus()
+    {
+        return ms_bNetworkStatus;
+    }
+
     public static DemoDatabase getDB()
     {
-        if(m_db == null)
-            m_db = new DemoDatabase(ms_AppContext);
-            
+        if( m_db == null )
+            m_db = new DemoDatabase( ms_AppContext );
+
         return m_db;
     }
 
