@@ -16,6 +16,7 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -103,7 +104,9 @@ public class GetQuotesTab extends Activity
                 Log.d( "On ITEM CLICK ", " Exchg is : " + szExch );
                 Log.d( "On ITEM CLICK ", " Symbol is : " + szSymbol );
 
-                String szGetQuoteURL = "http://finance.yahoo.com/d/quotes.csv?s=" + szSymbol + "&f=snd1l1yr";
+                // String szGetQuoteURL = "http://finance.yahoo.com/d/quotes.csv?s=" + szSymbol + "&f=snd1l1yr";
+                // String szGetQuoteURL = "http://finance.yahoo.com/d/quotes.csv?s=" + szSymbol + "&f=ophgkjc6cl1t1d1v";
+                String szGetQuoteURL = "http://in.finance.yahoo.com/d/quotes.csv?s=" + szSymbol + "&f=ophgkjc6cl1t1d1v";
                 FetchQuote( szGetQuoteURL );
             }
         } );
@@ -140,6 +143,10 @@ public class GetQuotesTab extends Activity
             HttpResponse response = httpclient.execute( request );
             String szResponse = inputStreamToString( response.getEntity().getContent() ).toString();
             Log.d( "GetQuotesTab-FetchQuote", "Response is :" + szResponse );
+
+            Intent intent = new Intent( this, Quote.class );
+            intent.putExtra( "response", szResponse );
+            startActivity( intent );
         }
         catch( Exception e )
         {
