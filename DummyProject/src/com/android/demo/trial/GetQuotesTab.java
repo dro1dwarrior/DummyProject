@@ -13,12 +13,10 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import com.android.demo.util.Util;
-import com.google.android.maps.Overlay.Snappable;
-
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -35,6 +33,8 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.android.demo.util.Util;
 
 // import com.geodesic.android.universalIM.GoogleAnalytics.GoogleAnalytics;
 
@@ -72,63 +72,9 @@ public class GetQuotesTab extends Activity
                 {
                     m_searchProgress = ProgressDialog.show( GetQuotesTab.this, "Fetching result", "Please wait..." );
                     m_searchProgress.setCancelable( true );
-                    String szSymbol = "";
-                    String szName = "";
-                    String szExch = "";
-                    String szType = "";
-                    try
-                    {
-                        HttpClient httpclient = new DefaultHttpClient();
-                        HttpGet request = new HttpGet();
-                        request.setURI( new URI( szQueryURL ) );
-                        HttpResponse response = httpclient.execute( request );
-                        String szResponse = inputStreamToString( response.getEntity().getContent() ).toString();
-                        Log.d( "GetQuotesTab", "Response is :" + szResponse );
-                        if( !szResponse.startsWith( "Error" ) )
-                        {
-                            szResponse = szResponse.substring( szResponse.indexOf( '(' ) + 1, szResponse.length() - 1 );
-
-                            JSONObject mainObject = new JSONObject( szResponse );
-                            JSONObject resultSet = mainObject.getJSONObject( "ResultSet" );
-                            JSONArray result = resultSet.getJSONArray( "Result" );
-
-                            if( result.length() > 0 )
-                            {
-                                symbols = new YahooSymbolList();
-                                for( int i = 0; i < result.length(); ++i )
-                                {
-                                    JSONObject item = result.getJSONObject( i );
-                                    szSymbol = ( item.getString( "symbol" ) );
-                                    szName = ( item.getString( "name" ) );
-                                    szExch = ( item.getString( "exch" ) );
-                                    szType = ( item.getString( "type" ) );
-
-                                    YahooSymbol obj = new YahooSymbol();
-                                    obj.setSymbol( szSymbol );
-                                    obj.setName( szName );
-                                    obj.setExch( szExch );
-                                    obj.setType( szType );
-                                    symbols.add( obj );
-
-                                    Log.d( "Parsing Data Response ", " *******  symbol: " + szSymbol );
-                                    Log.d( "Parsing Data Response ", " *******  name: " + szName );
-                                    Log.d( "Parsing Data Response ", " *******  exch: " + szExch );
-                                    Log.d( "Parsing Data Response ", " *******  type: " + szType );
-                                }
-                                handler.sendEmptyMessage( 0 );
-                            }
-                            else
-                            {
-                                Log.d( "Search-onClick", "No Results found. Try Again..." );
-                            }
-                        }
-
-                    }
-                    catch( Exception e )
-                    {
-                        // TODO: handle exception
-                        e.printStackTrace();
-                    }
+                    searchTask task = new searchTask();
+                    task.szQueryURL = szQueryURL;
+                    task.execute();
                 }
                 else
                 {
@@ -300,5 +246,84 @@ public class GetQuotesTab extends Activity
 
             TextView stockname, exch, symbol;
         }
+    }
+
+    private class searchTask extends AsyncTask< String, Void, String >
+    {
+        String szQueryURL = "";
+
+        @Override
+        protected String doInBackground( String... arg0 )
+        {
+
+            String szSymbol = "";
+            String szName = "";
+            String szExch = "";
+            String szType = "";
+            try
+            {
+                HttpClient httpclient = new DefaultHttpClient();
+                HttpGet request = new HttpGet();
+                request.setURI( new URI( szQueryURL ) );
+                HttpResponse response = httpclient.execute( request );
+                String szResponse = inputStreamToString( response.getEntity().getContent() ).toString();
+                Log.d( "GetQuotesTab", "Response is :" + szResponse );
+                if( !szResponse.startsWith( "Error" ) )
+                {
+                    szResponse = szResponse.substring( szResponse.indexOf( '(' ) + 1, szResponse.length() - 1 );
+
+                    JSONObject mainObject = new JSONObject( szResponse );
+                    JSONObject resultSet = mainObject.getJSONObject( "ResultSet" );
+                    JSONArray result = resultSet.getJSONArray( "Result" );
+
+                    if( result.length() > 0 )
+                    {
+                        symbols = new YahooSymbolList();
+                        for( int i = 0; i < result.length(); ++i )
+                        {
+                            JSONObject item = result.getJSONObject( i );
+                            szSymbol = ( item.getString( "symbol" ) );
+                            szName = ( item.getString( "name" ) );
+                            szExch = ( item.getString( "exch" ) );
+                            szType = ( item.getString( "type" ) );
+
+                            YahooSymbol obj = new YahooSymbol();
+                            obj.setSymbol( szSymbol );
+                            obj.setName( szName );
+                            obj.setExch( szExch );
+                            obj.setType( szType );
+                            symbols.add( obj );
+
+                            Log.d( "Parsing Data Response ", " *******  symbol: " + szSymbol );
+                            Log.d( "Parsing Data Response ", " *******  name: " + szName );
+                            Log.d( "Parsing Data Response ", " *******  exch: " + szExch );
+                            Log.d( "Parsing Data Response ", " *******  type: " + szType );
+                        }
+                    }
+                    else
+                    {
+                        Log.d( "Search-onClick", "No Results found. Try Again..." );
+                    }
+                }
+
+            }
+            catch( Exception e )
+            {
+                // TODO: handle exception
+                e.printStackTrace();
+                return "error";
+            }
+            return "success";
+        }
+
+        protected void onPostExecute( String szResult )
+        {
+            if( szResult == "success" )
+            {
+                handler.sendEmptyMessage( 0 );
+            }
+            super.onPostExecute( szResult );
+        }
+
     }
 }
