@@ -14,6 +14,18 @@
 			  android:layout_marginRight="20dip"
 			  android:textColor="@color/header"/>
 	
+	<TextView android:id="@+id/news_url" 
+			  android:gravity="left" 
+			  android:layout_height="wrap_content"
+			  android:ellipsize="end"
+			  android:text="ddfgdfgfdgdg "
+			  android:layout_width="wrap_content" 
+			  android:layout_marginLeft="5dip"
+			  android:layout_marginRight="20dip"
+			  android:textColor="@color/header"
+			  android:layout_below="@+id/news_headline"
+			  android:visibility="gone"/>
+	
 	<ImageView android:id="@+id/news_pic" 
 			   android:layout_width="wrap_content"
 			   android:layout_height="wrap_content"
