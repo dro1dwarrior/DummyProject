@@ -60,8 +60,8 @@ public class MarketsTab extends ListActivity
             TextView textChange = (TextView) view.findViewById( R.id.markets_change );
 
             String szIndice = cursor.getString( cursor.getColumnIndex( DataProvider.Markets.INDICE ) );
-            String szCurrentVal = cursor.getString( cursor.getColumnIndex( DataProvider.Markets.CURRENT_VAL ) );
-            String szChange = cursor.getString( cursor.getColumnIndex( DataProvider.Markets.CHANGE ) );
+            String szCurrentVal = cursor.getString( cursor.getColumnIndex( DataProvider.Markets.LASTTRADEPRICE ) );
+            String szChange = cursor.getString( cursor.getColumnIndex( DataProvider.Markets.REALTIMECHANGE ) );
 
             textIndice.setText( szIndice );
             textCurrentVal.setText( szCurrentVal );
