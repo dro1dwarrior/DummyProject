@@ -78,7 +78,7 @@ public class GetQuotesTab extends Activity
                     {
                         szSearchString = szSearchString.replace( " ", "%20" );
                         szSearchString = URLEncoder.encode( szSearchString, "UTF-8" );
-                        final String szQueryURL = String.format(m_szYahooGetCodeURL,szSearchString);
+                        final String szQueryURL = String.format( m_szYahooGetCodeURL, szSearchString );
                         if( Util.getNetworkStatus() )
                         {
                             m_searchProgress = ProgressDialog.show( GetQuotesTab.this, "Fetching result", "Please wait..." );
@@ -126,8 +126,9 @@ public class GetQuotesTab extends Activity
                     // String szGetQuoteURL = "http://finance.yahoo.com/d/quotes.csv?s=" + szSymbol + "&f=snd1l1yr";
                     // String szGetQuoteURL = "http://finance.yahoo.com/d/quotes.csv?s=" + szSymbol +
                     // "&f=ophgkjc6cl1t1d1v";
-                    // String szGetQuoteURL = "http://in.finance.yahoo.com/d/quotes.csv?s=" + szSymbol + "&f=ophgkjc6cl1t1d1v";
-                    String szGetQuoteURL = String.format(m_szYahooGetQuotesURL,szSymbol);
+                    // String szGetQuoteURL = "http://in.finance.yahoo.com/d/quotes.csv?s=" + szSymbol +
+                    // "&f=ophgkjc6cl1t1d1v";
+                    String szGetQuoteURL = String.format( m_szYahooGetQuotesURL, szSymbol );
 
                     if( Util.getNetworkStatus() )
                     {
@@ -207,16 +208,16 @@ public class GetQuotesTab extends Activity
             emptyView.setVisibility( View.GONE );
             editTextSearch.setText( "" );
         }
-        if(symbols.isEmpty())
+        if( symbols.isEmpty() )
         {
             emptyView.setVisibility( View.VISIBLE );
-            emptyView.setText("No match found for your search : '" + szSearchString + "'");
-            editTextSearch.setText("");
+            emptyView.setText( "No match found for your search : '" + szSearchString + "'" );
+            editTextSearch.setText( "" );
         }
         else
         {
             emptyView.setVisibility( View.GONE );
-            editTextSearch.setText("");
+            editTextSearch.setText( "" );
         }
     }
 
@@ -322,7 +323,7 @@ public class GetQuotesTab extends Activity
                     symbols = new YahooSymbolList();
                     if( result.length() > 0 )
                     {
-                        
+
                         for( int i = 0; i < result.length(); ++i )
                         {
                             JSONObject item = result.getJSONObject( i );
@@ -346,7 +347,7 @@ public class GetQuotesTab extends Activity
                     }
                     else
                     {
-                       Log.d( "Search-onClick", "No Results found. Try Again..." );                       
+                        Log.d( "Search-onClick", "No Results found. Try Again..." );
                     }
                 }
 
@@ -414,6 +415,9 @@ public class GetQuotesTab extends Activity
                 String[] RowData = szResponse.split( "," );
                 try
                 {
+                    String szPercentChange = RowData[7].replaceAll( "\"", "" );
+                    szPercentChange = szPercentChange.substring( szPercentChange.lastIndexOf( "-" ) );
+
                     ContentValues stockValues = new ContentValues();
                     stockValues.put( DataProvider.Stocks.SYMBOL, szSymbol );
                     stockValues.put( DataProvider.Stocks.NAME, szName );
@@ -425,11 +429,11 @@ public class GetQuotesTab extends Activity
                     stockValues.put( DataProvider.Stocks.LOW, RowData[3] );
                     stockValues.put( DataProvider.Stocks.YEARHIGH, RowData[4] );
                     stockValues.put( DataProvider.Stocks.YEARLOW, RowData[5] );
-                    stockValues.put( DataProvider.Stocks.REALTIMECHANGE, RowData[6] );
-                    stockValues.put( DataProvider.Stocks.PERCENTCHANGE, RowData[7] );
+                    stockValues.put( DataProvider.Stocks.REALTIMECHANGE, RowData[6].replaceAll( "\"", "" ) );
+                    stockValues.put( DataProvider.Stocks.PERCENTCHANGE, szPercentChange );
                     stockValues.put( DataProvider.Stocks.LASTTRADEPRICE, RowData[8] );
-                    stockValues.put( DataProvider.Stocks.LASTTRADETIME, RowData[9] );
-                    stockValues.put( DataProvider.Stocks.LASTTRADEDATE, RowData[10] );
+                    stockValues.put( DataProvider.Stocks.LASTTRADETIME, RowData[9].replaceAll( "\"", "" ) );
+                    stockValues.put( DataProvider.Stocks.LASTTRADEDATE, RowData[10].replaceAll( "\"", "" ) );
                     stockValues.put( DataProvider.Stocks.VOLUME, RowData[11] );
                     Util.getDB().insert( DemoDatabase.STOCKSS_TABLE, stockValues );
 
