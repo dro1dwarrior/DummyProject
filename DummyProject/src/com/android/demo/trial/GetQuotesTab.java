@@ -42,8 +42,8 @@ import com.android.demo.util.Util;
 
 public class GetQuotesTab extends Activity
 {
-    private String m_szYahooURL = "http://d.yimg.com/autoc.finance.yahoo.com/autoc?query=";
-    private String m_szYahooURL1 = "&callback=YAHOO.Finance.SymbolSuggest.ssCallback";
+    private String m_szYahooGetCodeURL = "http://d.yimg.com/autoc.finance.yahoo.com/autoc?query=%s&callback=YAHOO.Finance.SymbolSuggest.ssCallback";
+    private String m_szYahooGetQuotesURL = "http://in.finance.yahoo.com/d/quotes.csv?s=%s&f=ophgkjc6cl1t1d1v";
     YahooSymbolList symbols;
     ListView quotesList;
     ProgressDialog m_searchProgress = null;
@@ -75,7 +75,7 @@ public class GetQuotesTab extends Activity
                     {
                         szSearchString = szSearchString.replace( " ", "%20" );
                         szSearchString = URLEncoder.encode( szSearchString, "UTF-8" );
-                        final String szQueryURL = m_szYahooURL + szSearchString + m_szYahooURL1;
+                        final String szQueryURL = String.format(m_szYahooGetCodeURL,szSearchString);
                         if( Util.getNetworkStatus() )
                         {
                             m_searchProgress = ProgressDialog.show( GetQuotesTab.this, "Fetching result", "Please wait..." );
@@ -123,7 +123,8 @@ public class GetQuotesTab extends Activity
                     // String szGetQuoteURL = "http://finance.yahoo.com/d/quotes.csv?s=" + szSymbol + "&f=snd1l1yr";
                     // String szGetQuoteURL = "http://finance.yahoo.com/d/quotes.csv?s=" + szSymbol +
                     // "&f=ophgkjc6cl1t1d1v";
-                    String szGetQuoteURL = "http://in.finance.yahoo.com/d/quotes.csv?s=" + szSymbol + "&f=ophgkjc6cl1t1d1v";
+                    // String szGetQuoteURL = "http://in.finance.yahoo.com/d/quotes.csv?s=" + szSymbol + "&f=ophgkjc6cl1t1d1v";
+                    String szGetQuoteURL = String.format(m_szYahooGetQuotesURL,szSymbol);
 
                     if( Util.getNetworkStatus() )
                     {
@@ -191,11 +192,23 @@ public class GetQuotesTab extends Activity
             m_searchProgress.dismiss();
             m_searchProgress = null;
         }
+        String szSearchString = editTextSearch.getText().toString();
         TextView emptyView = (TextView) findViewById( android.R.id.empty );
         if( quotesList != null )
         {
             emptyView.setVisibility( View.GONE );
             editTextSearch.setText( "" );
+        }
+        if(symbols.isEmpty())
+        {
+            emptyView.setVisibility( View.VISIBLE );
+            emptyView.setText("No match found for your search : '" + szSearchString + "'");
+            editTextSearch.setText("");
+        }
+        else
+        {
+            emptyView.setVisibility( View.GONE );
+            editTextSearch.setText("");
         }
     }
 
@@ -298,9 +311,10 @@ public class GetQuotesTab extends Activity
                     JSONObject resultSet = mainObject.getJSONObject( "ResultSet" );
                     JSONArray result = resultSet.getJSONArray( "Result" );
 
+                    symbols = new YahooSymbolList();
                     if( result.length() > 0 )
                     {
-                        symbols = new YahooSymbolList();
+                        
                         for( int i = 0; i < result.length(); ++i )
                         {
                             JSONObject item = result.getJSONObject( i );
@@ -324,7 +338,7 @@ public class GetQuotesTab extends Activity
                     }
                     else
                     {
-                        Log.d( "Search-onClick", "No Results found. Try Again..." );
+                       Log.d( "Search-onClick", "No Results found. Try Again..." );                       
                     }
                 }
 
