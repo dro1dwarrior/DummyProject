@@ -3,7 +3,8 @@
     android:id="@+id/stocklist"
     android:layout_width="fill_parent"
     android:layout_height="50dp"
-    android:padding="6dip" >
+    android:padding="6dip" 
+    android:background="@drawable/list_selector">
 
     <RelativeLayout
         android:id="@+id/relStockName"

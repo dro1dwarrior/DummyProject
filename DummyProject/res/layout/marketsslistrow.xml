@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
   				android:layout_height="60dp" 
   				android:layout_width="fill_parent"
-  				android:padding="6dip">
+  				android:padding="6dip"
+  				android:background="@drawable/list_selector">
 
 	<TextView android:id="@+id/markets_indice" 
 			  android:gravity="left" 
