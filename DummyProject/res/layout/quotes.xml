@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/app_background" >
+
+    <TableLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:stretchColumns="*" >
+
+        <TableRow android:layout_margin="1dip" >
+
+            <TextView
+                android:layout_margin="1dip"
+                android:text="open"
+                android:textColor="@color/header" />
+
+            <TextView
+                android:id="@+id/open"
+                android:layout_margin="1dip"
+                android:textColor="@color/summary" />
+
+            <TextView
+                android:layout_margin="1dip"
+                android:text="close"
+                android:textColor="@color/header" />
+
+            <TextView
+                android:id="@+id/close"
+                android:layout_margin="1dip"
+                android:textColor="@color/summary" />
+        </TableRow>
+
+        <TableRow android:layout_margin="1dip" >
+
+            <TextView
+                android:layout_margin="1dip"
+                android:text="day high"
+                android:textColor="@color/header" />
+
+            <TextView
+                android:id="@+id/high"
+                android:layout_margin="1dip"
+                android:textColor="@color/summary" />
+
+            <TextView
+                android:layout_margin="1dip"
+                android:text="day low"
+                android:textColor="@color/header" />
+
+            <TextView
+                android:id="@+id/low"
+                android:layout_margin="1dip"
+                android:textColor="@color/summary" />
+        </TableRow>
+
+        <TableRow android:layout_margin="1dip" >
+
+            <TextView
+                android:layout_margin="1dip"
+                android:text="week high"
+                android:textColor="@color/header" />
+
+            <TextView
+                android:id="@+id/weekhigh"
+                android:layout_margin="1dip"
+                android:textColor="@color/summary" />
+
+            <TextView
+                android:layout_margin="1dip"
+                android:text="week low"
+                android:textColor="@color/header" />
+
+            <TextView
+                android:id="@+id/weeklow"
+                android:layout_margin="1dip"
+                android:textColor="@color/summary" />
+        </TableRow>
+
+        <TableRow android:layout_margin="1dip" >
+
+            <TextView
+                android:layout_margin="1dip"
+                android:text="realtime change"
+                android:textColor="@color/header" />
+
+            <TextView
+                android:id="@+id/realtimechange"
+                android:layout_margin="1dip"
+                android:textColor="@color/summary" />
+
+            <TextView
+                android:layout_margin="1dip"
+                android:text="% change"
+                android:textColor="@color/header" />
+
+            <TextView
+                android:id="@+id/percentchange"
+                android:layout_margin="1dip"
+                android:textColor="@color/summary" />
+        </TableRow>
+
+        <TableRow android:layout_margin="1dip" >
+
+            <TextView
+                android:layout_margin="1dip"
+                android:text="Last trade price"
+                android:textColor="@color/header" />
+
+            <TextView
+                android:id="@+id/lasttradeprice"
+                android:layout_margin="1dip"
+                android:textColor="@color/summary" />
+
+            <TextView
+                android:layout_margin="1dip"
+                android:text="Last Trade Time"
+                android:textColor="@color/header" />
+
+            <TextView
+                android:id="@+id/lasttradetime"
+                android:layout_margin="1dip"
+                android:textColor="@color/summary" />
+        </TableRow>
+
+        <TableRow android:layout_margin="1dip" >
+
+            <TextView
+                android:layout_margin="1dip"
+                android:text="Last trade date"
+                android:textColor="@color/header" />
+
+            <TextView
+                android:id="@+id/lasttradedate"
+                android:layout_margin="1dip"
+                android:textColor="@color/summary" />
+
+            <TextView
+                android:layout_margin="1dip"
+                android:text="Volume"
+                android:textColor="@color/header" />
+
+            <TextView
+                android:id="@+id/volume"
+                android:layout_margin="1dip"
+                android:textColor="@color/summary" />
+        </TableRow>
+    </TableLayout>
+
+</RelativeLayout>
