@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URI;
+import java.net.URLEncoder;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -46,6 +47,7 @@ public class GetQuotesTab extends Activity
     YahooSymbolList symbols;
     ListView quotesList;
     ProgressDialog m_searchProgress = null;
+    private EditText editTextSearch;
 
     @Override
     protected void onCreate( Bundle savedInstanceState )
@@ -56,6 +58,7 @@ public class GetQuotesTab extends Activity
         // GoogleAnalytics.trackPageView( this, GoogleAnalytics.FAVORITESTAB_PAGE );
         Util.setNetworkStatus();
 
+        editTextSearch = (EditText) findViewById( R.id.edittextSearch );
         Button btnSearch = (Button) findViewById( R.id.btnSearch );
         btnSearch.setOnClickListener( new OnClickListener()
         {
@@ -64,25 +67,35 @@ public class GetQuotesTab extends Activity
             public void onClick( View v )
             {
                 // TODO Auto-generated method stub
-                EditText editTextSearch = (EditText) findViewById( R.id.edittextSearch );
-                String szSearchString = editTextSearch.getText().toString();
-                szSearchString = szSearchString.replace( " ", "%20" );
-                final String szQueryURL = m_szYahooURL + szSearchString + m_szYahooURL1;
 
-                if( Util.getNetworkStatus() )
+                String szSearchString = editTextSearch.getText().toString();
+                if( szSearchString != "" )
                 {
-                    m_searchProgress = ProgressDialog.show( GetQuotesTab.this, "Fetching result", "Please wait..." );
-                    m_searchProgress.setCancelable( true );
-                    searchTask task = new searchTask();
-                    task.szQueryURL = szQueryURL;
-                    task.execute();
-                }
-                else
-                {
-                    Toast.makeText( GetQuotesTab.this, getString( R.string.networknotavailable ), Toast.LENGTH_LONG ).show();
+                    try
+                    {
+                        szSearchString = szSearchString.replace( " ", "%20" );
+                        szSearchString = URLEncoder.encode( szSearchString, "UTF-8" );
+                        final String szQueryURL = m_szYahooURL + szSearchString + m_szYahooURL1;
+                        if( Util.getNetworkStatus() )
+                        {
+                            m_searchProgress = ProgressDialog.show( GetQuotesTab.this, "Fetching result", "Please wait..." );
+                            m_searchProgress.setCancelable( true );
+                            searchTask task = new searchTask();
+                            task.szQueryURL = szQueryURL;
+                            task.execute();
+                        }
+                        else
+                        {
+                            Toast.makeText( GetQuotesTab.this, getString( R.string.networknotavailable ), Toast.LENGTH_LONG ).show();
+                        }
+                    }
+                    catch( Exception e )
+                    {
+                        // TODO: handle exception
+                        e.printStackTrace();
+                    }
                 }
             }
-
         } );
 
         quotesList = (ListView) findViewById( R.id.quotesList );
@@ -104,10 +117,32 @@ public class GetQuotesTab extends Activity
                 Log.d( "On ITEM CLICK ", " Exchg is : " + szExch );
                 Log.d( "On ITEM CLICK ", " Symbol is : " + szSymbol );
 
-                // String szGetQuoteURL = "http://finance.yahoo.com/d/quotes.csv?s=" + szSymbol + "&f=snd1l1yr";
-                // String szGetQuoteURL = "http://finance.yahoo.com/d/quotes.csv?s=" + szSymbol + "&f=ophgkjc6cl1t1d1v";
-                String szGetQuoteURL = "http://in.finance.yahoo.com/d/quotes.csv?s=" + szSymbol + "&f=ophgkjc6cl1t1d1v";
-                FetchQuote( szGetQuoteURL );
+                try
+                {
+                    szSymbol = URLEncoder.encode( szSymbol, "UTF-8" );
+                    // String szGetQuoteURL = "http://finance.yahoo.com/d/quotes.csv?s=" + szSymbol + "&f=snd1l1yr";
+                    // String szGetQuoteURL = "http://finance.yahoo.com/d/quotes.csv?s=" + szSymbol +
+                    // "&f=ophgkjc6cl1t1d1v";
+                    String szGetQuoteURL = "http://in.finance.yahoo.com/d/quotes.csv?s=" + szSymbol + "&f=ophgkjc6cl1t1d1v";
+
+                    if( Util.getNetworkStatus() )
+                    {
+                        m_searchProgress = ProgressDialog.show( GetQuotesTab.this, "Fetching result", "Please wait..." );
+                        m_searchProgress.setCancelable( true );
+                        fetchQuotesTask task = new fetchQuotesTask();
+                        task.szQueryURL = szGetQuoteURL;
+                        task.execute();
+                    }
+                    else
+                    {
+                        Toast.makeText( GetQuotesTab.this, getString( R.string.networknotavailable ), Toast.LENGTH_LONG ).show();
+                    }
+                }
+                catch( Exception e )
+                {
+                    // TODO: handle exception
+                    e.printStackTrace();
+                }
             }
         } );
 
@@ -131,29 +166,6 @@ public class GetQuotesTab extends Activity
             setAdapter();
         }
     };
-
-    private void FetchQuote( String szURL )
-    {
-        // TODO Auto-generated method stub
-        try
-        {
-            HttpClient httpclient = new DefaultHttpClient();
-            HttpGet request = new HttpGet();
-            request.setURI( new URI( szURL ) );
-            HttpResponse response = httpclient.execute( request );
-            String szResponse = inputStreamToString( response.getEntity().getContent() ).toString();
-            Log.d( "GetQuotesTab-FetchQuote", "Response is :" + szResponse );
-
-            Intent intent = new Intent( this, Quote.class );
-            intent.putExtra( "response", szResponse );
-            startActivity( intent );
-        }
-        catch( Exception e )
-        {
-            // TODO: handle exception
-            e.printStackTrace();
-        }
-    }
 
     private StringBuilder inputStreamToString( InputStream content ) throws IOException
     {
@@ -181,7 +193,10 @@ public class GetQuotesTab extends Activity
         }
         TextView emptyView = (TextView) findViewById( android.R.id.empty );
         if( quotesList != null )
+        {
             emptyView.setVisibility( View.GONE );
+            editTextSearch.setText( "" );
+        }
     }
 
     public class StockListAdapter extends BaseAdapter
@@ -328,6 +343,51 @@ public class GetQuotesTab extends Activity
             if( szResult == "success" )
             {
                 handler.sendEmptyMessage( 0 );
+            }
+            super.onPostExecute( szResult );
+        }
+
+    }
+
+    private class fetchQuotesTask extends AsyncTask< String, Void, String >
+    {
+        String szQueryURL = "";
+        String szResponse = "";
+
+        @Override
+        protected String doInBackground( String... arg0 )
+        {
+            try
+            {
+                HttpClient httpclient = new DefaultHttpClient();
+                HttpGet request = new HttpGet();
+                request.setURI( new URI( szQueryURL ) );
+                HttpResponse response = httpclient.execute( request );
+                szResponse = inputStreamToString( response.getEntity().getContent() ).toString();
+                Log.d( "GetQuotesTab-fetchQuotesTask", "Response is :" + szResponse );
+            }
+            catch( Exception e )
+            {
+                // TODO: handle exception
+                e.printStackTrace();
+                return "error";
+            }
+            return "success";
+        }
+
+        protected void onPostExecute( String szResult )
+        {
+            if( m_searchProgress != null )
+            {
+                m_searchProgress.dismiss();
+                m_searchProgress = null;
+            }
+            if( szResult == "success" )
+            {
+                handler.sendEmptyMessage( 0 );
+                Intent intent = new Intent( GetQuotesTab.this, Quote.class );
+                intent.putExtra( "response", szResponse );
+                startActivity( intent );
             }
             super.onPostExecute( szResult );
         }
