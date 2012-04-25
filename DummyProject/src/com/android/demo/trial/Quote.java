@@ -63,7 +63,7 @@ public class Quote extends Activity
             szWeekLow = RowData[5];
             szRealTimeChange = RowData[6].replaceAll( "\"", "" );
             szPercentChange = RowData[7].replaceAll( "\"", "" );
-            szPercentChange = szPercentChange.substring( szPercentChange.lastIndexOf( "-" ) );
+            szPercentChange = szPercentChange.substring( szPercentChange.lastIndexOf( "- " ) + 1 );
             szLastTradePrice = RowData[8];
             szLastTradeTime = RowData[9].replaceAll( "\"", "" );
             szLastTradeDate = RowData[10].replaceAll( "\"", "" );

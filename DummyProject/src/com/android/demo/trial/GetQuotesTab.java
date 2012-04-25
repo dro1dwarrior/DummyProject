@@ -416,7 +416,7 @@ public class GetQuotesTab extends Activity
                 try
                 {
                     String szPercentChange = RowData[7].replaceAll( "\"", "" );
-                    szPercentChange = szPercentChange.substring( szPercentChange.lastIndexOf( "-" ) );
+                    szPercentChange = szPercentChange.substring( szPercentChange.lastIndexOf( "- " ) + 1 );
 
                     ContentValues stockValues = new ContentValues();
                     stockValues.put( DataProvider.Stocks.SYMBOL, szSymbol );
@@ -440,6 +440,7 @@ public class GetQuotesTab extends Activity
                     Intent intent = new Intent( GetQuotesTab.this, Quote.class );
                     intent.putExtra( "response", szResponse );
                     intent.putExtra( "quotename", szName );
+                    intent.putExtra( "quotesymbol", szSymbol );
                     startActivity( intent );
                 }
                 catch( Exception e )
