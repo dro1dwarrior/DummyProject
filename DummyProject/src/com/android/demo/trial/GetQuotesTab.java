@@ -16,6 +16,7 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -36,6 +37,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.demo.db.DataProvider;
+import com.android.demo.db.DemoDatabase;
 import com.android.demo.util.Util;
 
 // import com.geodesic.android.universalIM.GoogleAnalytics.GoogleAnalytics;
@@ -131,6 +134,11 @@ public class GetQuotesTab extends Activity
                         m_searchProgress.setCancelable( true );
                         fetchQuotesTask task = new fetchQuotesTask();
                         task.szQueryURL = szGetQuoteURL;
+                        task.szName = szName;
+                        task.szSymbol = szSymbol;
+                        int nPos = szSymbol.indexOf( "-" );
+                        task.szExch = szSymbol.substring( 0, nPos );
+                        task.szType = szSymbol.substring( nPos + 1 );
                         task.execute();
                     }
                     else
@@ -353,6 +361,10 @@ public class GetQuotesTab extends Activity
     {
         String szQueryURL = "";
         String szResponse = "";
+        String szName = "";
+        String szExch = "";
+        String szSymbol = "";
+        String szType = "";
 
         @Override
         protected String doInBackground( String... arg0 )
@@ -384,13 +396,41 @@ public class GetQuotesTab extends Activity
             }
             if( szResult == "success" )
             {
-                handler.sendEmptyMessage( 0 );
-                Intent intent = new Intent( GetQuotesTab.this, Quote.class );
-                intent.putExtra( "response", szResponse );
-                startActivity( intent );
+
+                String[] RowData = szResponse.split( "," );
+                try
+                {
+                    ContentValues stockValues = new ContentValues();
+                    stockValues.put( DataProvider.Stocks.SYMBOL, szSymbol );
+                    stockValues.put( DataProvider.Stocks.NAME, szName );
+                    stockValues.put( DataProvider.Stocks.EXCHANGE, szExch );
+                    stockValues.put( DataProvider.Stocks.TYPE, szType );
+                    stockValues.put( DataProvider.Stocks.OPEN, RowData[0] );
+                    stockValues.put( DataProvider.Stocks.CLOSE, RowData[1] );
+                    stockValues.put( DataProvider.Stocks.HIGH, RowData[2] );
+                    stockValues.put( DataProvider.Stocks.LOW, RowData[3] );
+                    stockValues.put( DataProvider.Stocks.YEARHIGH, RowData[4] );
+                    stockValues.put( DataProvider.Stocks.YEARLOW, RowData[5] );
+                    stockValues.put( DataProvider.Stocks.REALTIMECHANGE, RowData[6] );
+                    stockValues.put( DataProvider.Stocks.PERCENTCHANGE, RowData[7] );
+                    stockValues.put( DataProvider.Stocks.LASTTRADEPRICE, RowData[8] );
+                    stockValues.put( DataProvider.Stocks.LASTTRADETIME, RowData[9] );
+                    stockValues.put( DataProvider.Stocks.LASTTRADEDATE, RowData[10] );
+                    stockValues.put( DataProvider.Stocks.VOLUME, RowData[11] );
+                    Util.getDB().insert( DemoDatabase.STOCKSS_TABLE, stockValues );
+
+                    Intent intent = new Intent( GetQuotesTab.this, Quote.class );
+                    intent.putExtra( "response", szResponse );
+                    intent.putExtra( "quotename", szName );
+                    startActivity( intent );
+                }
+                catch( Exception e )
+                {
+                    // TODO: handle exception
+                    e.printStackTrace();
+                }
             }
             super.onPostExecute( szResult );
         }
-
     }
 }

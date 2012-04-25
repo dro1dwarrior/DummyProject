@@ -46,8 +46,10 @@ public class Quote extends Activity
         TextView txtVolume = (TextView) findViewById( R.id.volume );
 
         String szQuoteResponse = getIntent().getStringExtra( "response" );
+        String szQuoteName = getIntent().getStringExtra( "quotename" );
 
         Log.d( "onCreate", " Quotes : " + szQuoteResponse );
+        Log.d( "onCreate", " Quotes : " + szQuoteName );
         String[] RowData = szQuoteResponse.split( "," );
         try
         {
