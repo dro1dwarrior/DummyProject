@@ -52,8 +52,10 @@ public class DemoDatabase
         marketsProjectionMap = new HashMap< String, String >();
         marketsProjectionMap.put( DataProvider.Markets._ID, DataProvider.Markets._ID );
         marketsProjectionMap.put( DataProvider.Markets.INDICE, DataProvider.Markets.INDICE );
-        marketsProjectionMap.put( DataProvider.Markets.CURRENT_VAL, DataProvider.Markets.CURRENT_VAL );
-        marketsProjectionMap.put( DataProvider.Markets.CHANGE, DataProvider.Markets.CHANGE );
+        marketsProjectionMap.put( DataProvider.Markets.SYMBOL, DataProvider.Markets.SYMBOL );
+        marketsProjectionMap.put( DataProvider.Markets.REALTIMECHANGE, DataProvider.Markets.REALTIMECHANGE );
+        marketsProjectionMap.put( DataProvider.Markets.PERCENTCHANGE, DataProvider.Markets.PERCENTCHANGE );
+        marketsProjectionMap.put( DataProvider.Markets.LASTTRADEPRICE, DataProvider.Markets.LASTTRADEPRICE );
         
         stocksProjectionMap = new HashMap< String, String >();
         stocksProjectionMap.put( DataProvider.Stocks._ID, DataProvider.Stocks._ID );
@@ -104,8 +106,10 @@ public class DemoDatabase
             table = "CREATE TABLE IF NOT EXISTS " + MARKETS_TABLE + " (";
             table += DataProvider.Markets._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,";
             table += DataProvider.Markets.INDICE + " varchar not null,";
-            table += DataProvider.Markets.CURRENT_VAL + " varchar,";
-            table += DataProvider.Markets.CHANGE + " varchar);";
+            table += DataProvider.Markets.SYMBOL + " varchar,";
+            table += DataProvider.Markets.REALTIMECHANGE + " varchar,";
+            table += DataProvider.Markets.PERCENTCHANGE + " varchar,";
+            table += DataProvider.Markets.LASTTRADEPRICE + " varchar);";
             argDB.execSQL( table );
             
             table = "";

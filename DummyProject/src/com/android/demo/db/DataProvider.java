@@ -25,8 +25,10 @@ public class DataProvider
         {}
         public static final Uri CONTENT_URI = Uri.parse( DemoDatabase.DATABASE_PATH + "/markets" );
         public static final String INDICE = "indice";
-        public static final String CURRENT_VAL = "vurrent_val";
-        public static final String CHANGE = "change";
+        public static final String SYMBOL = "symbol";
+        public static final String REALTIMECHANGE = "realtimechange";
+        public static final String PERCENTCHANGE = "percentchange";
+        public static final String LASTTRADEPRICE = "lasttradeprice";
     }
     
     public static final class Stocks implements BaseColumns
