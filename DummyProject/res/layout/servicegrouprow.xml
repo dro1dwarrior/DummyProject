@@ -1,24 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/tab_indicator" >
- 
- 	<ImageView android:id="@+id/imageview_group_row" 
-			   	android:layout_width="20dp"
-		   		android:layout_height="wrap_content"
-			   	android:layout_gravity="center"
-			   	android:src="@drawable/service_equity"/>
-			   	
-    <TextView android:id="@+id/textView_group_row"
-         android:paddingLeft="20dp"
-         android:textSize="16dp"
-         android:singleLine="true"
-         android:textStyle="normal"
-         android:textColor="@android:color/white" 
-         android:layout_width="fill_parent"
-         android:layout_height="wrap_content"
-         android:textColor="@color/white"/>
- 
+    android:background="@drawable/tab_indicator"
+    android:orientation="horizontal" >
+
+    <ImageView
+        android:id="@+id/imageview_group_row"
+        android:layout_width="20dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:src="@drawable/service_equity" />
+
+    <TextView
+        android:id="@+id/textView_group_row"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:singleLine="true"
+        android:textColor="@android:color/white"
+        android:textSize="16dp"
+        android:textStyle="normal" />
+
 </LinearLayout>
