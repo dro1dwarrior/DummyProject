@@ -32,6 +32,7 @@ public class Quote extends Activity
         super.onCreate( savedInstanceState );
         setContentView( R.layout.quotes );
 
+        TextView txtName = (TextView) findViewById( R.id.stock_name );
         TextView txtOpen = (TextView) findViewById( R.id.open );
         TextView txtClose = (TextView) findViewById( R.id.close );
         TextView txtDayHigh = (TextView) findViewById( R.id.high );
@@ -47,6 +48,7 @@ public class Quote extends Activity
 
         String szQuoteResponse = getIntent().getStringExtra( "response" );
         String szQuoteName = getIntent().getStringExtra( "quotename" );
+        String szQuoteSymbol = getIntent().getStringExtra( "quotesymbol" );
 
         Log.d( "onCreate", " Quotes : " + szQuoteResponse );
         Log.d( "onCreate", " Quotes : " + szQuoteName );
@@ -67,6 +69,7 @@ public class Quote extends Activity
             szLastTradeDate = RowData[10].replaceAll( "\"", "" );
             szVolume = RowData[11];
 
+            txtName.setText( szQuoteName );
             txtOpen.setText( szOpen );
             txtClose.setText( szClose );
             txtDayHigh.setText( szDayHigh );
@@ -74,7 +77,7 @@ public class Quote extends Activity
             txtWeekHigh.setText( szWeekHigh );
             txtWeekLow.setText( szWeekLow );
             txtRealTimeChange.setText( szRealTimeChange );
-            txtPercentChange.setText( szPercentChange );
+            txtPercentChange.setText( "("+szPercentChange+")" );
             txtLastTradePrice.setText( szLastTradePrice );
             txtLastTradeTime.setText( szLastTradeTime );
             txtLastTradeDate.setText( szLastTradeDate );
