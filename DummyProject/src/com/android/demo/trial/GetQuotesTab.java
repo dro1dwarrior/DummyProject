@@ -416,7 +416,7 @@ public class GetQuotesTab extends Activity
                 try
                 {
                     String szPercentChange = RowData[7].replaceAll( "\"", "" );
-                    szPercentChange = szPercentChange.substring( szPercentChange.lastIndexOf( "-" ) );
+                    szPercentChange = szPercentChange.substring( szPercentChange.lastIndexOf( "- " ) + 1 );
 
                     ContentValues stockValues = new ContentValues();
                     stockValues.put( DataProvider.Stocks.SYMBOL, szSymbol );
