@@ -46,8 +46,10 @@ public class Quote extends Activity
         TextView txtVolume = (TextView) findViewById( R.id.volume );
 
         String szQuoteResponse = getIntent().getStringExtra( "response" );
+        String szQuoteName = getIntent().getStringExtra( "quotename" );
 
         Log.d( "onCreate", " Quotes : " + szQuoteResponse );
+        Log.d( "onCreate", " Quotes : " + szQuoteName );
         String[] RowData = szQuoteResponse.split( "," );
         try
         {
@@ -57,11 +59,12 @@ public class Quote extends Activity
             szDayLow = RowData[3];
             szWeekHigh = RowData[4];
             szWeekLow = RowData[5];
-            szRealTimeChange = RowData[6];
-            szPercentChange = RowData[7];
+            szRealTimeChange = RowData[6].replaceAll( "\"", "" );
+            szPercentChange = RowData[7].replaceAll( "\"", "" );
+            szPercentChange = szPercentChange.substring( szPercentChange.lastIndexOf( "-" ) );
             szLastTradePrice = RowData[8];
-            szLastTradeTime = RowData[9];
-            szLastTradeDate = RowData[10];
+            szLastTradeTime = RowData[9].replaceAll( "\"", "" );
+            szLastTradeDate = RowData[10].replaceAll( "\"", "" );
             szVolume = RowData[11];
 
             txtOpen.setText( szOpen );

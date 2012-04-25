@@ -16,6 +16,7 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -36,6 +37,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.demo.db.DataProvider;
+import com.android.demo.db.DemoDatabase;
 import com.android.demo.util.Util;
 
 // import com.geodesic.android.universalIM.GoogleAnalytics.GoogleAnalytics;
@@ -75,7 +78,7 @@ public class GetQuotesTab extends Activity
                     {
                         szSearchString = szSearchString.replace( " ", "%20" );
                         szSearchString = URLEncoder.encode( szSearchString, "UTF-8" );
-                        final String szQueryURL = String.format(m_szYahooGetCodeURL,szSearchString);
+                        final String szQueryURL = String.format( m_szYahooGetCodeURL, szSearchString );
                         if( Util.getNetworkStatus() )
                         {
                             m_searchProgress = ProgressDialog.show( GetQuotesTab.this, "Fetching result", "Please wait..." );
@@ -123,8 +126,9 @@ public class GetQuotesTab extends Activity
                     // String szGetQuoteURL = "http://finance.yahoo.com/d/quotes.csv?s=" + szSymbol + "&f=snd1l1yr";
                     // String szGetQuoteURL = "http://finance.yahoo.com/d/quotes.csv?s=" + szSymbol +
                     // "&f=ophgkjc6cl1t1d1v";
-                    // String szGetQuoteURL = "http://in.finance.yahoo.com/d/quotes.csv?s=" + szSymbol + "&f=ophgkjc6cl1t1d1v";
-                    String szGetQuoteURL = String.format(m_szYahooGetQuotesURL,szSymbol);
+                    // String szGetQuoteURL = "http://in.finance.yahoo.com/d/quotes.csv?s=" + szSymbol +
+                    // "&f=ophgkjc6cl1t1d1v";
+                    String szGetQuoteURL = String.format( m_szYahooGetQuotesURL, szSymbol );
 
                     if( Util.getNetworkStatus() )
                     {
@@ -132,6 +136,11 @@ public class GetQuotesTab extends Activity
                         m_searchProgress.setCancelable( true );
                         fetchQuotesTask task = new fetchQuotesTask();
                         task.szQueryURL = szGetQuoteURL;
+                        task.szName = szName;
+                        task.szSymbol = szSymbol;
+                        int nPos = szExch.indexOf( "-" );
+                        task.szExch = szExch.substring( 0, nPos );
+                        task.szType = szExch.substring( nPos + 1 );
                         task.execute();
                     }
                     else
@@ -199,16 +208,16 @@ public class GetQuotesTab extends Activity
             emptyView.setVisibility( View.GONE );
             editTextSearch.setText( "" );
         }
-        if(symbols.isEmpty())
+        if( symbols.isEmpty() )
         {
             emptyView.setVisibility( View.VISIBLE );
-            emptyView.setText("No match found for your search : '" + szSearchString + "'");
-            editTextSearch.setText("");
+            emptyView.setText( "No match found for your search : '" + szSearchString + "'" );
+            editTextSearch.setText( "" );
         }
         else
         {
             emptyView.setVisibility( View.GONE );
-            editTextSearch.setText("");
+            editTextSearch.setText( "" );
         }
     }
 
@@ -314,7 +323,7 @@ public class GetQuotesTab extends Activity
                     symbols = new YahooSymbolList();
                     if( result.length() > 0 )
                     {
-                        
+
                         for( int i = 0; i < result.length(); ++i )
                         {
                             JSONObject item = result.getJSONObject( i );
@@ -338,7 +347,7 @@ public class GetQuotesTab extends Activity
                     }
                     else
                     {
-                       Log.d( "Search-onClick", "No Results found. Try Again..." );                       
+                        Log.d( "Search-onClick", "No Results found. Try Again..." );
                     }
                 }
 
@@ -367,6 +376,10 @@ public class GetQuotesTab extends Activity
     {
         String szQueryURL = "";
         String szResponse = "";
+        String szName = "";
+        String szExch = "";
+        String szSymbol = "";
+        String szType = "";
 
         @Override
         protected String doInBackground( String... arg0 )
@@ -398,13 +411,44 @@ public class GetQuotesTab extends Activity
             }
             if( szResult == "success" )
             {
-                handler.sendEmptyMessage( 0 );
-                Intent intent = new Intent( GetQuotesTab.this, Quote.class );
-                intent.putExtra( "response", szResponse );
-                startActivity( intent );
+
+                String[] RowData = szResponse.split( "," );
+                try
+                {
+                    String szPercentChange = RowData[7].replaceAll( "\"", "" );
+                    szPercentChange = szPercentChange.substring( szPercentChange.lastIndexOf( "-" ) );
+
+                    ContentValues stockValues = new ContentValues();
+                    stockValues.put( DataProvider.Stocks.SYMBOL, szSymbol );
+                    stockValues.put( DataProvider.Stocks.NAME, szName );
+                    stockValues.put( DataProvider.Stocks.EXCHANGE, szExch );
+                    stockValues.put( DataProvider.Stocks.TYPE, szType );
+                    stockValues.put( DataProvider.Stocks.OPEN, RowData[0] );
+                    stockValues.put( DataProvider.Stocks.CLOSE, RowData[1] );
+                    stockValues.put( DataProvider.Stocks.HIGH, RowData[2] );
+                    stockValues.put( DataProvider.Stocks.LOW, RowData[3] );
+                    stockValues.put( DataProvider.Stocks.YEARHIGH, RowData[4] );
+                    stockValues.put( DataProvider.Stocks.YEARLOW, RowData[5] );
+                    stockValues.put( DataProvider.Stocks.REALTIMECHANGE, RowData[6].replaceAll( "\"", "" ) );
+                    stockValues.put( DataProvider.Stocks.PERCENTCHANGE, szPercentChange );
+                    stockValues.put( DataProvider.Stocks.LASTTRADEPRICE, RowData[8] );
+                    stockValues.put( DataProvider.Stocks.LASTTRADETIME, RowData[9].replaceAll( "\"", "" ) );
+                    stockValues.put( DataProvider.Stocks.LASTTRADEDATE, RowData[10].replaceAll( "\"", "" ) );
+                    stockValues.put( DataProvider.Stocks.VOLUME, RowData[11] );
+                    Util.getDB().insert( DemoDatabase.STOCKSS_TABLE, stockValues );
+
+                    Intent intent = new Intent( GetQuotesTab.this, Quote.class );
+                    intent.putExtra( "response", szResponse );
+                    intent.putExtra( "quotename", szName );
+                    startActivity( intent );
+                }
+                catch( Exception e )
+                {
+                    // TODO: handle exception
+                    e.printStackTrace();
+                }
             }
             super.onPostExecute( szResult );
         }
-
     }
 }

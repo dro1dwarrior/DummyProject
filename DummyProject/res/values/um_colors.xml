@@ -11,6 +11,7 @@
 <color name="green">#008500</color>
 <color name="red">#d60404</color>
 <color name="white">#ffffff</color>
+<color name="quotes_stroke">#00608c</color>
 
 <color name="app_background_endcolor">#e3f5fd</color>
 <color name="app_background_startcolor">#b9e6fb</color>
