@@ -23,6 +23,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -61,8 +63,36 @@ public class GetQuotesTab extends Activity
         // GoogleAnalytics.trackPageView( this, GoogleAnalytics.FAVORITESTAB_PAGE );
         Util.setNetworkStatus();
 
+        final Button btnSearch = (Button) findViewById( R.id.btnSearch );
+        btnSearch.setEnabled( false );
         editTextSearch = (EditText) findViewById( R.id.edittextSearch );
-        Button btnSearch = (Button) findViewById( R.id.btnSearch );
+        editTextSearch.addTextChangedListener( new TextWatcher()
+        {
+
+            @Override
+            public void onTextChanged( CharSequence s, int start, int before, int count )
+            {
+                // TODO Auto-generated method stub
+                if( editTextSearch.getText().toString() != "" && editTextSearch.getText().toString().length() > 0 )
+                    btnSearch.setEnabled( true );
+                else
+                    btnSearch.setEnabled( false );
+            }
+
+            @Override
+            public void beforeTextChanged( CharSequence s, int start, int count, int after )
+            {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void afterTextChanged( Editable s )
+            {
+                // TODO Auto-generated method stub
+            }
+        } );
+
         btnSearch.setOnClickListener( new OnClickListener()
         {
 
@@ -348,6 +378,7 @@ public class GetQuotesTab extends Activity
                     else
                     {
                         Log.d( "Search-onClick", "No Results found. Try Again..." );
+                        return "no results";
                     }
                 }
 
@@ -417,6 +448,8 @@ public class GetQuotesTab extends Activity
                 {
                     String szPercentChange = RowData[7].replaceAll( "\"", "" );
                     szPercentChange = szPercentChange.substring( szPercentChange.lastIndexOf( "- " ) + 1 );
+
+                    Util.getDB().delete( DemoDatabase.STOCKSS_TABLE, DataProvider.Stocks.SYMBOL + " ='" + szSymbol + "'", null );
 
                     ContentValues stockValues = new ContentValues();
                     stockValues.put( DataProvider.Stocks.SYMBOL, szSymbol );
