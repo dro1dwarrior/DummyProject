@@ -438,8 +438,6 @@ public class GetQuotesTab extends Activity
                     Util.getDB().insert( DemoDatabase.STOCKSS_TABLE, stockValues );
 
                     Intent intent = new Intent( GetQuotesTab.this, Quote.class );
-                    intent.putExtra( "response", szResponse );
-                    intent.putExtra( "quotename", szName );
                     intent.putExtra( "quotesymbol", szSymbol );
                     startActivity( intent );
                 }
