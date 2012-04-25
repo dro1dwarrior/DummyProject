@@ -137,9 +137,9 @@ public class GetQuotesTab extends Activity
                         task.szQueryURL = szGetQuoteURL;
                         task.szName = szName;
                         task.szSymbol = szSymbol;
-                        int nPos = szSymbol.indexOf( "-" );
-                        task.szExch = szSymbol.substring( 0, nPos );
-                        task.szType = szSymbol.substring( nPos + 1 );
+                        int nPos = szExch.indexOf( "-" );
+                        task.szExch = szExch.substring( 0, nPos );
+                        task.szType = szExch.substring( nPos + 1 );
                         task.execute();
                     }
                     else
