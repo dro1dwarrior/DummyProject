@@ -31,8 +31,7 @@
         android:id="@+id/quotesList"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:cacheColorHint="@android:color/transparent"
-        android:listSelector="@android:color/transparent" />
+        android:cacheColorHint="@android:color/transparent"/>
 
     <TextView
         android:id="@id/android:empty"
