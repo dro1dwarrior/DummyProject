@@ -32,9 +32,11 @@ public class DemoDatabase
 
     public static final String NEWS_TABLE = "news";
     public static final String MARKETS_TABLE = "markets";
+    public static final String STOCKSS_TABLE = "stocks";
 
     private static HashMap< String, String > newsProjectionMap;
     private static HashMap< String, String > marketsProjectionMap;
+    private static HashMap< String, String > stocksProjectionMap;
 
     public static Context applicationContext;
     
@@ -53,6 +55,24 @@ public class DemoDatabase
         marketsProjectionMap.put( DataProvider.Markets.CURRENT_VAL, DataProvider.Markets.CURRENT_VAL );
         marketsProjectionMap.put( DataProvider.Markets.CHANGE, DataProvider.Markets.CHANGE );
         
+        stocksProjectionMap = new HashMap< String, String >();
+        stocksProjectionMap.put( DataProvider.Stocks._ID, DataProvider.Stocks._ID );
+        stocksProjectionMap.put( DataProvider.Stocks.SYMBOL, DataProvider.Stocks.SYMBOL );
+        stocksProjectionMap.put( DataProvider.Stocks.NAME, DataProvider.Stocks.NAME );
+        stocksProjectionMap.put( DataProvider.Stocks.EXCHANGE, DataProvider.Stocks.EXCHANGE );
+        stocksProjectionMap.put( DataProvider.Stocks.TYPE, DataProvider.Stocks.TYPE );
+        stocksProjectionMap.put( DataProvider.Stocks.OPEN, DataProvider.Stocks.OPEN );
+        stocksProjectionMap.put( DataProvider.Stocks.CLOSE, DataProvider.Stocks.CLOSE );
+        stocksProjectionMap.put( DataProvider.Stocks.HIGH, DataProvider.Stocks.HIGH );
+        stocksProjectionMap.put( DataProvider.Stocks.LOW, DataProvider.Stocks.LOW );
+        stocksProjectionMap.put( DataProvider.Stocks.YEARHIGH, DataProvider.Stocks.YEARHIGH );
+        stocksProjectionMap.put( DataProvider.Stocks.YEARLOW, DataProvider.Stocks.YEARLOW );
+        stocksProjectionMap.put( DataProvider.Stocks.REALTIMECHANGE, DataProvider.Stocks.REALTIMECHANGE );
+        stocksProjectionMap.put( DataProvider.Stocks.PERCENTCHANGE, DataProvider.Stocks.PERCENTCHANGE );
+        stocksProjectionMap.put( DataProvider.Stocks.LASTTRADEPRICE, DataProvider.Stocks.LASTTRADEPRICE );
+        stocksProjectionMap.put( DataProvider.Stocks.LASTTRADETIME, DataProvider.Stocks.LASTTRADETIME );
+        stocksProjectionMap.put( DataProvider.Stocks.LASTTRADEDATE, DataProvider.Stocks.LASTTRADEDATE );
+        stocksProjectionMap.put( DataProvider.Stocks.VOLUME, DataProvider.Stocks.VOLUME );        
     }
 
     /**
@@ -86,6 +106,27 @@ public class DemoDatabase
             table += DataProvider.Markets.INDICE + " varchar not null,";
             table += DataProvider.Markets.CURRENT_VAL + " varchar,";
             table += DataProvider.Markets.CHANGE + " varchar);";
+            argDB.execSQL( table );
+            
+            table = "";
+            table = "CREATE TABLE IF NOT EXISTS " + STOCKSS_TABLE + " (";
+            table += DataProvider.Stocks._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,";
+            table += DataProvider.Stocks.SYMBOL + " varchar not null,";
+            table += DataProvider.Stocks.NAME + " varchar,";
+            table += DataProvider.Stocks.EXCHANGE + " varchar,";
+            table += DataProvider.Stocks.TYPE + " varchar,";
+            table += DataProvider.Stocks.OPEN + " varchar,";
+            table += DataProvider.Stocks.CLOSE + " varchar,";
+            table += DataProvider.Stocks.HIGH + " varchar,";
+            table += DataProvider.Stocks.LOW + " varchar,";
+            table += DataProvider.Stocks.YEARHIGH + " varchar,";
+            table += DataProvider.Stocks.YEARLOW + " varchar,";
+            table += DataProvider.Stocks.REALTIMECHANGE + " varchar,";
+            table += DataProvider.Stocks.PERCENTCHANGE + " varchar,";
+            table += DataProvider.Stocks.LASTTRADEPRICE + " varchar,";
+            table += DataProvider.Stocks.LASTTRADETIME + " varchar,";
+            table += DataProvider.Stocks.LASTTRADEDATE + " varchar,";
+            table += DataProvider.Stocks.VOLUME + " varchar);";
             argDB.execSQL( table );
 
         }
