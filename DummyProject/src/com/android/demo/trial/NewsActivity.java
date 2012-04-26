@@ -28,6 +28,7 @@ public class NewsActivity extends Activity
     
         m_WebView.getSettings().setJavaScriptEnabled(true);
         m_WebView.setBackgroundColor(0);
+        m_WebView.getSettings().setBuiltInZoomControls(true);
         final Activity activity = this;
         m_WebView.setWebChromeClient(new WebChromeClient() {
           public void onProgressChanged(WebView view, int progress) {
@@ -43,7 +44,5 @@ public class NewsActivity extends Activity
         });
         
         m_WebView.loadUrl( m_szNewsURL );
-        
-    
     }
 }

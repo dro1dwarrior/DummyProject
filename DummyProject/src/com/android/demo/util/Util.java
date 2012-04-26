@@ -25,7 +25,7 @@ public class Util
         NetworkInfo activeNetInfo = connectivityManager.getActiveNetworkInfo();
         NetworkInfo mobNetInfo = connectivityManager.getNetworkInfo( ConnectivityManager.TYPE_MOBILE );
         NetworkInfo wifiInfo = connectivityManager.getNetworkInfo( ConnectivityManager.TYPE_WIFI );
-        Log.d( "SplashScreen-onCreate()", "activeNetInfo " + activeNetInfo + " mobNetInfo " + mobNetInfo );
+        Log.d( "Util-setNetworkStatus()", "activeNetInfo " + activeNetInfo + " mobNetInfo " + mobNetInfo );
 
         if( ( mobNetInfo != null && mobNetInfo.isAvailable() && mobNetInfo.isConnected() )
                 || ( activeNetInfo != null && activeNetInfo.isAvailable() && activeNetInfo.isConnected() )
@@ -33,12 +33,12 @@ public class Util
         {
             // NetworkBroadcastReceiver.ms_bIsNetworkAvailable = true;
             ms_bNetworkStatus = true;
-            Log.d( "SplashScreen-onCreate()", "NETWORK AVAILABLE" );
+            Log.d( "Util-setNetworkStatus()", "NETWORK AVAILABLE" );
         }
         else
         {
             ms_bNetworkStatus = false;
-            Log.d( "SplashScreen-onCreate()", "NETWORK NOT AVAILABLE" );
+            Log.d( "Util-setNetworkStatus()", "NETWORK NOT AVAILABLE" );
             // NetworkBroadcastReceiver.ms_bIsNetworkAvailable = false;
         }
     }
