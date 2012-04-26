@@ -15,11 +15,10 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import android.app.ListActivity;
 import android.content.ContentValues;
 import android.content.Context;
-import android.database.ContentObserver;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,8 +39,8 @@ import com.android.demo.util.Util;
 public class MarketsTab extends ListActivity
 {
     private ListAdapter m_adapter = null;
-    Cursor m_Cursor;
-    private String m_szYahooGetQuotesURL = "http://in.finance.yahoo.com/d/quotes.csv?s=%s&f=ophgkjc6cl1t1d1v";
+    static Cursor m_Cursor;
+    private static String m_szYahooGetQuotesURL = "http://in.finance.yahoo.com/d/quotes.csv?s=%s&f=ophgkjc6cl1t1d1v";
 
     @Override
     protected void onCreate( Bundle savedInstanceState )
@@ -67,8 +66,13 @@ public class MarketsTab extends ListActivity
                 TextView textIndice = (TextView) view.findViewById( R.id.markets_indice );
                 TextView textCurrentVal = (TextView) view.findViewById( R.id.markets_current_val );
                 TextView textChange = (TextView) view.findViewById( R.id.markets_change );
+                TextView textSymbol = (TextView) view.findViewById( R.id.markets_symbol );
                 Log.d( "*************", "item click" );
                 Log.d( "*************", "item real time change is :" + textChange.getText().toString() );
+
+                Intent intent = new Intent( MarketsTab.this, Quote.class );
+                intent.putExtra( "quotesymbol", textSymbol.getText().toString() );
+                startActivity( intent );
             }
         } );
     }
@@ -83,13 +87,25 @@ public class MarketsTab extends ListActivity
         getListView().setAdapter( m_adapter );
     }
 
-    public void fetchIndicesData()
+    @Override
+    protected void onDestroy()
+    {
+        // TODO Auto-generated method stub
+        super.onDestroy();
+        m_Cursor.close();
+        m_Cursor.deactivate();
+    }
+
+    public static void fetchIndicesData()
     {
         // TODO Auto-generated method stub
         try
         {
             if( Util.getNetworkStatus() )
             {
+                if( m_Cursor == null )
+                    m_Cursor = Util.getDB().query( DemoDatabase.MARKETS_TABLE, null, null, null, null, null, null );
+
                 if( m_Cursor != null && m_Cursor.moveToFirst() )
                 {
                     int i = 1;
@@ -151,14 +167,17 @@ public class MarketsTab extends ListActivity
             TextView textIndice = (TextView) view.findViewById( R.id.markets_indice );
             TextView textCurrentVal = (TextView) view.findViewById( R.id.markets_current_val );
             TextView textChange = (TextView) view.findViewById( R.id.markets_change );
+            TextView textSymbol = (TextView) view.findViewById( R.id.markets_symbol );
 
             String szIndice = cursor.getString( cursor.getColumnIndex( DataProvider.Markets.INDICE ) );
             String szCurrentVal = cursor.getString( cursor.getColumnIndex( DataProvider.Markets.LASTTRADEPRICE ) );
             String szChange = cursor.getString( cursor.getColumnIndex( DataProvider.Markets.REALTIMECHANGE ) );
+            String szSymbol = cursor.getString( cursor.getColumnIndex( DataProvider.Markets.SYMBOL ) );
 
             textIndice.setText( szIndice );
             textCurrentVal.setText( szCurrentVal );
             textChange.setText( szChange );
+            textSymbol.setText( szSymbol );
             if( szChange.contains( "+" ) )
             {
                 textCurrentVal.setTextColor( getResources().getColor( R.color.green ) );
@@ -187,7 +206,7 @@ public class MarketsTab extends ListActivity
 
     }
 
-    private class fetchQuotesTask extends AsyncTask< String, Void, String >
+    private static class fetchQuotesTask extends AsyncTask< String, Void, String >
     {
         String szQueryURL = "";
         String szResponse = "";
@@ -237,6 +256,27 @@ public class MarketsTab extends ListActivity
                     marketValues.put( DataProvider.Markets.LASTTRADEPRICE, RowData[8] );
                     Util.getDB().update( DemoDatabase.MARKETS_TABLE, marketValues, szWhere, null );
                     m_Cursor.requery();
+
+                    Util.getDB().delete( DemoDatabase.STOCKSS_TABLE, DataProvider.Stocks.SYMBOL + " ='" + szSymbol + "'", null );
+
+                    ContentValues stockValues = new ContentValues();
+                    stockValues.put( DataProvider.Stocks.SYMBOL, szSymbol );
+                    stockValues.put( DataProvider.Stocks.NAME, szIndice );
+                    stockValues.put( DataProvider.Stocks.EXCHANGE, "" );
+                    stockValues.put( DataProvider.Stocks.TYPE, "" );
+                    stockValues.put( DataProvider.Stocks.OPEN, RowData[0] );
+                    stockValues.put( DataProvider.Stocks.CLOSE, RowData[1] );
+                    stockValues.put( DataProvider.Stocks.HIGH, RowData[2] );
+                    stockValues.put( DataProvider.Stocks.LOW, RowData[3] );
+                    stockValues.put( DataProvider.Stocks.YEARHIGH, RowData[4] );
+                    stockValues.put( DataProvider.Stocks.YEARLOW, RowData[5] );
+                    stockValues.put( DataProvider.Stocks.REALTIMECHANGE, RowData[6].replaceAll( "\"", "" ) );
+                    stockValues.put( DataProvider.Stocks.PERCENTCHANGE, szPercentChange );
+                    stockValues.put( DataProvider.Stocks.LASTTRADEPRICE, RowData[8] );
+                    stockValues.put( DataProvider.Stocks.LASTTRADETIME, RowData[9].replaceAll( "\"", "" ) );
+                    stockValues.put( DataProvider.Stocks.LASTTRADEDATE, RowData[10].replaceAll( "\"", "" ) );
+                    stockValues.put( DataProvider.Stocks.VOLUME, RowData[11] );
+                    Util.getDB().insert( DemoDatabase.STOCKSS_TABLE, stockValues );
                 }
                 catch( Exception e )
                 {
@@ -248,7 +288,7 @@ public class MarketsTab extends ListActivity
         }
     }
 
-    private StringBuilder inputStreamToString( InputStream content ) throws IOException
+    private static StringBuilder inputStreamToString( InputStream content ) throws IOException
     {
         // TODO Auto-generated method stub
         String line = "";

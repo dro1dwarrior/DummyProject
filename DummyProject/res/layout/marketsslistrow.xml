@@ -30,7 +30,7 @@
 	<TextView android:id="@+id/markets_change" 
 			  android:layout_height="wrap_content"
 			  android:text="16500"
-			  android:layout_width="40dp" 
+			  android:layout_width="60dp" 
 			  android:layout_marginRight="5dip"
 			  android:layout_centerVertical="true"
 			  android:layout_toLeftOf="@+id/markets_arrow"
@@ -47,5 +47,12 @@
 			  android:layout_toLeftOf="@+id/markets_change"
 			  android:textColor="@color/header"
 			  android:gravity="right"
-			  />		 				  
+			  />		 			
+			  
+	<TextView android:id="@+id/markets_symbol" 
+			  android:layout_height="wrap_content"
+			  android:layout_width="wrap_content"
+			  android:visibility="gone" 
+			  />		 			
+			  	  
 </RelativeLayout>
