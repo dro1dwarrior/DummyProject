@@ -70,9 +70,13 @@ public class MarketsTab extends ListActivity
                 Log.d( "*************", "item click" );
                 Log.d( "*************", "item real time change is :" + textChange.getText().toString() );
 
-                Intent intent = new Intent( MarketsTab.this, Quote.class );
-                intent.putExtra( "quotesymbol", textSymbol.getText().toString() );
-                startActivity( intent );
+                if( textSymbol.getText().toString().equals( "" ) == false )
+                {
+                    Intent intent = new Intent( MarketsTab.this, Quote.class );
+                    intent.putExtra( "quotesymbol", textSymbol.getText().toString() );
+                    startActivity( intent );
+                }
+
             }
         } );
     }
