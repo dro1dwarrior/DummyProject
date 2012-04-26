@@ -9,26 +9,26 @@
    		 			   android:layout_height="43dp"
    		 			   android:background="@android:color/white">
    		 			   
-   		 	<TextView android:id="@+id/textview_fav_title" 
-			  		  android:layout_height="40dp"
-			  		  android:singleLine="true"
-			  		  android:text="@string/app_name"
-			  		  android:textColor="@color/dark_blue"
-			  		  android:textStyle="bold"
-			  		  android:textSize="20dp"
-			  		  android:gravity="center"
-			  		  android:layout_centerHorizontal="true" 
-			  		  android:layout_width="fill_parent"		  />
-<!--			<ImageView android:id="@+id/imageview_contact_picture"-->
-<!--			   android:layout_width="wrap_content"-->
-<!--			   android:layout_height="40dp"-->
-<!--			   android:layout_centerHorizontal="true"-->
-<!--			   android:src="@drawable/dv_logo"/>-->
+<!--    		 	<TextView android:id="@+id/imageview_contact_picture"  -->
+<!-- 			  		  android:layout_height="40dp" -->
+<!-- 			  		  android:singleLine="true" -->
+<!-- 			  		  android:text="@string/app_name" -->
+<!-- 			  		  android:textColor="@color/dark_blue" -->
+<!-- 			  		  android:textStyle="bold" -->
+<!-- 			  		  android:textSize="20dp" -->
+<!-- 			  		  android:gravity="center" -->
+<!-- 			  		  android:layout_centerHorizontal="true"  -->
+<!-- 			  		  android:layout_width="fill_parent"		  /> -->
+			<ImageView android:id="@+id/imageview_contact_picture"
+			   android:layout_width="wrap_content"
+			   android:layout_height="40dp"
+			   android:layout_centerHorizontal="true"
+			   android:src="@drawable/dv_logo"/>
 			   
 			<TextView android:id="@+id/textview_line"
 			  		  android:layout_height="3dp"
 			  		  android:layout_width="fill_parent"
-			  		  android:layout_below="@+id/textview_fav_title"
+			  		  android:layout_below="@+id/imageview_contact_picture"
 			  		  android:background="@drawable/blue_strip"/>
 			
   	</RelativeLayout> 
