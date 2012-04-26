@@ -2,7 +2,7 @@
 <resources>
 
     <string name="hello">Hello World, DemoProjectActivity!</string>
-    <string name="app_name">Demo Project</string>
+    <string name="app_name">Devang Visaria</string>
     <string name="news_tab">News</string>
     <string name="markets_tab">Markets</string>
     <string name="get_quotes_tab">Stocks</string>
