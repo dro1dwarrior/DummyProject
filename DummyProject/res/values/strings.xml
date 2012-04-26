@@ -8,5 +8,6 @@
     <string name="get_quotes_tab">Stocks</string>
     <string name="subscription_tab">Services</string>
     <string name="networknotavailable">Network not available. Please try later!</string>
+    <string name="aboutusmenuitem">About us</string>
 
 </resources>

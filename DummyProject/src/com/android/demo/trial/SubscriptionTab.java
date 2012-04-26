@@ -1,30 +1,18 @@
 package com.android.demo.trial;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import android.app.ExpandableListActivity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.SimpleExpandableListAdapter;
 import android.widget.TextView;
-import android.widget.ExpandableListView.OnGroupClickListener;
 
 // import com.geodesic.android.universalIM.GoogleAnalytics.GoogleAnalytics;
 
@@ -51,6 +39,8 @@ public class SubscriptionTab extends ExpandableListActivity
         setListAdapter( m_Adapter );
 
         getExpandableListView().setGroupIndicator( null );
+        
+        getExpandableListView().expandGroup(0);
 
         // GoogleAnalytics.trackPageView( this, GoogleAnalytics.FAVORITESTAB_PAGE );
     }

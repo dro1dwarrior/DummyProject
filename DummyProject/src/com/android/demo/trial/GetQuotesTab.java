@@ -58,6 +58,7 @@ public class GetQuotesTab extends Activity
         super.onCreate( savedInstanceState );
         setContentView( R.layout.getquotesactivity );
 
+        
         // GoogleAnalytics.trackPageView( this, GoogleAnalytics.FAVORITESTAB_PAGE );
         Util.setNetworkStatus();
 
