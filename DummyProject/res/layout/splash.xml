@@ -12,6 +12,6 @@
         android:id="@+id/SplashImageView"
         android:scaleType="fitXY"
         >
-        <!-- android:src="@drawable/dv_logo"   -->
+        <!-- android:src="@drawable/dv_splashscreen"   -->
     </ImageView>
 </LinearLayout>
