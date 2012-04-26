@@ -11,7 +11,6 @@ public class NetworkBroadcastReceiver extends BroadcastReceiver
     @Override
     public void onReceive( Context argContext, Intent argIntent )
     {
-        Log.d( "NetworkBroadcastReceiver-onReceive()", "NETWORK STATE CHANGE *********************" );
         Util.setNetworkStatus();
     }
 }
