@@ -38,6 +38,7 @@
 	<WebView android:id="@+id/webview_news"
 	    android:layout_height="fill_parent"
 	    android:layout_width="fill_parent"
+	    android:background="@drawable/app_background"
 	    />
 
 </LinearLayout>

@@ -27,7 +27,7 @@ public class NewsActivity extends Activity
         m_WebView = (WebView) findViewById( R.id.webview_news );
     
         m_WebView.getSettings().setJavaScriptEnabled(true);
-
+        m_WebView.setBackgroundColor(0);
         final Activity activity = this;
         m_WebView.setWebChromeClient(new WebChromeClient() {
           public void onProgressChanged(WebView view, int progress) {
