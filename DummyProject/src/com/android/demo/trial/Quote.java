@@ -58,16 +58,16 @@ public class Quote extends Activity
         String szQuoteSymbol = getIntent().getStringExtra( "quotesymbol" );
 
         Log.d( "onCreate", " szQuoteSymbol : " + szQuoteSymbol );
-        
-        String szWhere = DataProvider.Stocks.SYMBOL + " = '"+szQuoteSymbol+"'";
-        Cursor stockCursor = Util.getDB().query(DemoDatabase.STOCKSS_TABLE, null, szWhere , null, null, null, null );
-        
-        if(stockCursor !=null && stockCursor.moveToFirst())
+
+        String szWhere = DataProvider.Stocks.SYMBOL + " = '" + szQuoteSymbol + "'";
+        Cursor stockCursor = Util.getDB().query( DemoDatabase.STOCKSS_TABLE, null, szWhere, null, null, null, null );
+
+        if( stockCursor != null && stockCursor.moveToFirst() )
         {
-            Log.d("asdasd","count"+stockCursor.getCount());
+            Log.d( "asdasd", "count" + stockCursor.getCount() );
             szName = stockCursor.getString( stockCursor.getColumnIndex( DataProvider.Stocks.NAME ) );
             szOpen = stockCursor.getString( stockCursor.getColumnIndex( DataProvider.Stocks.OPEN ) );
-            szClose = stockCursor.getString( stockCursor.getColumnIndex( DataProvider.Stocks.CLOSE) );
+            szClose = stockCursor.getString( stockCursor.getColumnIndex( DataProvider.Stocks.CLOSE ) );
             szDayHigh = stockCursor.getString( stockCursor.getColumnIndex( DataProvider.Stocks.HIGH ) );
             szDayLow = stockCursor.getString( stockCursor.getColumnIndex( DataProvider.Stocks.LOW ) );
             szWeekHigh = stockCursor.getString( stockCursor.getColumnIndex( DataProvider.Stocks.YEARHIGH ) );
@@ -87,20 +87,20 @@ public class Quote extends Activity
             txtWeekHigh.setText( szWeekHigh );
             txtWeekLow.setText( szWeekLow );
             txtRealTimeChange.setText( szRealTimeChange );
-            txtPercentChange.setText( "("+szPercentChange+")" );
+            txtPercentChange.setText( "(" + szPercentChange + ")" );
             txtLastTradePrice.setText( szLastTradePrice );
             txtLastTradeTime.setText( szLastTradeTime );
             txtLastTradeDate.setText( szLastTradeDate );
             txtVolume.setText( szVolume );
-            
-            if(szRealTimeChange.contains( "+" ))
+
+            if( szRealTimeChange.contains( "+" ) )
             {
                 imageArrow.setImageResource( R.drawable.arrow_gain_green );
                 txtLastTradePrice.setTextColor( getResources().getColor( R.color.green ) );
                 txtRealTimeChange.setTextColor( getResources().getColor( R.color.green ) );
                 txtPercentChange.setTextColor( getResources().getColor( R.color.green ) );
             }
-            else if(szRealTimeChange.contains( "-" ))
+            else if( szRealTimeChange.contains( "-" ) )
             {
                 imageArrow.setImageResource( R.drawable.arrow_loss_red );
                 txtLastTradePrice.setTextColor( getResources().getColor( R.color.red ) );
@@ -115,5 +115,7 @@ public class Quote extends Activity
                 txtPercentChange.setTextColor( getResources().getColor( R.color.header ) );
             }
         }
+        stockCursor.close();
+        stockCursor.deactivate();
     }
 }

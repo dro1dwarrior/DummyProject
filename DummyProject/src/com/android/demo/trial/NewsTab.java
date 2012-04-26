@@ -24,19 +24,28 @@ public class NewsTab extends ListActivity
 {
     private ListAdapter m_adapter = null;
     Cursor m_Cursor;
-    
+
     @Override
     protected void onCreate( Bundle savedInstanceState )
     {
         super.onCreate( savedInstanceState );
-        setContentView( R.layout.newsactivity);
-        
-        m_Cursor = Util.getDB().query( DemoDatabase.NEWS_TABLE, null, null, null, null,null,null );
+        setContentView( R.layout.newsactivity );
+
+        m_Cursor = Util.getDB().query( DemoDatabase.NEWS_TABLE, null, null, null, null, null, null );
         startManagingCursor( m_Cursor );
         m_adapter = new NewsAdapter( this, m_Cursor, true );
-        getListView().setAdapter( m_adapter );        
+        getListView().setAdapter( m_adapter );
     }
-    
+
+    @Override
+    protected void onDestroy()
+    {
+        // TODO Auto-generated method stub
+        super.onDestroy();
+        m_Cursor.close();
+        m_Cursor.deactivate();
+    }
+
     @Override
     public void onListItemClick( android.widget.ListView l, View v, int nPosition, long id )
     {
@@ -51,7 +60,7 @@ public class NewsTab extends ListActivity
         startActivity( intent );
         // finish();
     }
-    
+
     public class NewsAdapter extends CursorAdapter
     {
         private LayoutInflater inflater;
@@ -73,10 +82,10 @@ public class NewsTab extends ListActivity
             // TODO Auto-generated method stub
             TextView textHeadline = (TextView) view.findViewById( R.id.news_headline );
             TextView textURL = (TextView) view.findViewById( R.id.news_url );
-            
+
             String szHeadline = cursor.getString( cursor.getColumnIndex( DataProvider.News.HEADLINE ) );
             String szURL = cursor.getString( cursor.getColumnIndex( DataProvider.News.SOURCE_URL ) );
-            
+
             textHeadline.setText( szHeadline );
             textURL.setText( szURL );
         }
