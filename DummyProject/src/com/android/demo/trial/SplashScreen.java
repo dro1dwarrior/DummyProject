@@ -34,7 +34,7 @@ public class SplashScreen extends Activity
         setContentView( R.layout.splash );
 
         Util.setAppContext( this );
-        Util.setNetworkStatus();
+        Util.setNetworkStatus(this);
 
         MarketsTab.fetchIndicesData();
         showSplash( this, null );

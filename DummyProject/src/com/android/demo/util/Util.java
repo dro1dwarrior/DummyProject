@@ -19,9 +19,9 @@ public class Util
         m_db = new DemoDatabase( ms_AppContext );
     }
 
-    public static void setNetworkStatus()
+    public static void setNetworkStatus(Context appContext)
     {
-        ConnectivityManager connectivityManager = (ConnectivityManager) ms_AppContext.getSystemService( Context.CONNECTIVITY_SERVICE );
+        ConnectivityManager connectivityManager = (ConnectivityManager) appContext.getSystemService( Context.CONNECTIVITY_SERVICE );
         NetworkInfo activeNetInfo = connectivityManager.getActiveNetworkInfo();
         NetworkInfo mobNetInfo = connectivityManager.getNetworkInfo( ConnectivityManager.TYPE_MOBILE );
         NetworkInfo wifiInfo = connectivityManager.getNetworkInfo( ConnectivityManager.TYPE_WIFI );

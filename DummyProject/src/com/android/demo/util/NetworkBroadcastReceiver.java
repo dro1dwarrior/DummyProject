@@ -11,6 +11,6 @@ public class NetworkBroadcastReceiver extends BroadcastReceiver
     @Override
     public void onReceive( Context argContext, Intent argIntent )
     {
-        Util.setNetworkStatus();
+        Util.setNetworkStatus(argContext);
     }
 }

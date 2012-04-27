@@ -62,7 +62,7 @@ public class GetQuotesTab extends Activity
 
         
         // GoogleAnalytics.trackPageView( this, GoogleAnalytics.FAVORITESTAB_PAGE );
-        Util.setNetworkStatus();
+        Util.setNetworkStatus(this);
 
         final Button btnSearch = (Button) findViewById( R.id.btnSearch );
         btnSearch.setEnabled( false );
