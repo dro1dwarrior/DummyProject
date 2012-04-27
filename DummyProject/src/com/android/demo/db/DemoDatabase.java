@@ -294,7 +294,7 @@ public class DemoDatabase
         cv.put( DataProvider.Markets.INDICE, "SENSEX" );
         cv.put( DataProvider.Markets.LASTTRADEPRICE, "" );
         cv.put( DataProvider.Markets.REALTIMECHANGE, "" );
-        cv.put( DataProvider.Markets.SYMBOL, "SENSEX.BO" );
+        cv.put( DataProvider.Markets.SYMBOL, "^BSESN" );
         cv.put( DataProvider.Markets.PERCENTCHANGE, "" );
         insert( DemoDatabase.MARKETS_TABLE, cv );
 
