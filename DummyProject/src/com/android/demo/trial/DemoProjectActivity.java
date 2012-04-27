@@ -1,5 +1,7 @@
 package com.android.demo.trial;
 
+import com.android.demo.util.Util;
+
 import android.app.Activity;
 import android.app.TabActivity;
 import android.content.Intent;
@@ -146,5 +148,13 @@ public class DemoProjectActivity extends TabActivity
             }
         }
         return true;
+    }
+    
+    protected void onDestroy()
+    {
+        // TODO Auto-generated method stub
+        super.onDestroy();
+        Log.d("DemoProjectActivity-OnDestroy","OnDestroy");
+        Util.getDB().close();
     }
 }

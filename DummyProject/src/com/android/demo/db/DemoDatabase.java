@@ -219,6 +219,7 @@ public class DemoDatabase
     public void close()
     {
         mOpenHelper.close();
+        Log.d("DemoDatabase-close()","close the db");
     }
     
     private void fillNewsTable()
